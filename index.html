@@ -1,1544 +1,1305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VitalQ: Full-Stack Engineering Interview Master Bible (.NET 8 · Angular 19 · SQL Server)</title>
-  <style>
-    :root {
-      --primary: #0284c7;
-      --primary-dark: #0369a1;
-      --primary-light: #e0f2fe;
-      --secondary: #0f172a;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --surface-border: #e2e8f0;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --accent-green: #059669;
-      --accent-green-bg: #d1fae5;
-      --accent-red: #dc2626;
-      --accent-red-bg: #fee2e2;
-      --accent-amber: #d97706;
-      --accent-amber-bg: #fef3c7;
-      --accent-purple: #7c3aed;
-      --accent-purple-bg: #ede9fe;
-      --code-bg: #0f172a;
-      --code-text: #f8fafc;
-      --sidebar-width: 320px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalQ: Complete Technical Interview Master Guide (.NET 8 · Angular 19 · SignalR · SQL Server)</title>
+<style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --secondary: #0f172a;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --accent-green: #059669;
+    --accent-green-bg: #d1fae5;
+    --accent-red: #dc2626;
+    --accent-red-bg: #fee2e2;
+    --accent-amber: #d97706;
+    --accent-amber-bg: #fef3c7;
+    --accent-purple: #7c3aed;
+    --accent-purple-bg: #ede9fe;
+    --code-bg: #0f172a;
+    --code-text: #f1f5f9;
+    --sidebar-width: 320px;
+  }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    font-size: 15px;
+  }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-      line-height: 1.6;
-      font-size: 14.5px;
-    }
+  .layout { display: flex; min-height: 100vh; }
 
-    /* Layout */
-    .app-layout {
-      display: flex;
-      min-height: 100vh;
-    }
+  /* Sidebar */
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--secondary);
+    color: #cbd5e1;
+    padding: 24px 16px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+  .sidebar-brand {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sidebar-badge {
+    font-size: 0.68rem;
+    background: var(--primary);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+  .sidebar-subtitle {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #334155;
+  }
+  .nav-group { margin-bottom: 14px; }
+  .nav-header {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .nav-link {
+    display: block;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.83rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    margin-bottom: 2px;
+  }
+  .nav-link:hover {
+    background: #1e293b;
+    color: #fff;
+  }
 
-    /* Sidebar Navigation */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: var(--surface);
-      border-right: 1px solid var(--surface-border);
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-    }
+  /* Main Content */
+  .main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: 40px 48px;
+    max-width: 1150px;
+  }
+  .page-header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+  }
+  .page-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 8px;
+  }
+  .page-desc {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
 
-    .sidebar-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--surface-border);
-      background: #ffffff;
-    }
+  /* Filter & Search Bar */
+  .search-box {
+    margin-bottom: 30px;
+    position: sticky;
+    top: 15px;
+    z-index: 10;
+  }
+  .search-input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    outline: none;
+  }
+  .search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+  }
 
-    .sidebar-header h2 {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--secondary);
-      letter-spacing: -0.02em;
-    }
+  /* Category Section */
+  .category-section {
+    margin-bottom: 50px;
+    scroll-margin-top: 30px;
+  }
+  .category-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .category-desc {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
 
-    .sidebar-header .tagline {
-      font-size: 12px;
-      color: var(--primary);
-      font-weight: 600;
-      margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+  /* Q&A Card */
+  .qa-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    overflow: hidden;
+  }
+  .qa-question {
+    padding: 18px 22px;
+    background: #fdfdfd;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .qa-tag {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+  .tag-signalr { background: var(--accent-purple-bg); color: #6b21a8; }
+  .tag-csharp { background: var(--primary-light); color: var(--primary-dark); }
+  .tag-angular { background: var(--accent-red-bg); color: var(--accent-red); }
+  .tag-sql { background: var(--accent-amber-bg); color: var(--accent-amber); }
+  .tag-arch { background: var(--accent-green-bg); color: var(--accent-green); }
 
-    .sidebar-search {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--surface-border);
-    }
+  .qa-answer {
+    padding: 22px;
+    font-size: 0.96rem;
+    color: #334155;
+    line-height: 1.68;
+  }
+  .qa-answer p { margin-bottom: 12px; }
+  .qa-answer p:last-child { margin-bottom: 0; }
+  .qa-answer ul, .qa-answer ol {
+    margin-left: 22px;
+    margin-bottom: 14px;
+  }
+  .qa-answer li { margin-bottom: 6px; }
 
-    .sidebar-search input {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 6px;
-      border: 1px solid var(--surface-border);
-      background: var(--bg);
-      font-size: 13px;
-      outline: none;
-      transition: all 0.2s;
-    }
+  /* Callout Boxes */
+  .callout {
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 14px 0;
+    border-left: 4px solid;
+    font-size: 0.92rem;
+  }
+  .callout-pro-tip {
+    background: #f0fdf4;
+    border-color: var(--accent-green);
+    color: #166534;
+  }
+  .callout-warning {
+    background: #fef2f2;
+    border-color: var(--accent-red);
+    color: #991b1b;
+  }
+  .callout-code-sample {
+    background: var(--code-bg);
+    border-color: var(--primary);
+    color: #e2e8f0;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-size: 0.88rem;
+    overflow-x: auto;
+    margin: 12px 0;
+    line-height: 1.5;
+  }
 
-    .sidebar-search input:focus {
-      border-color: var(--primary);
-      background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-    }
-
-    .sidebar-nav {
-      padding: 16px 12px;
-      flex-grow: 1;
-    }
-
-    .nav-category {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      padding: 10px 12px 6px 12px;
-    }
-
-    .nav-link {
-      display: block;
-      padding: 8px 12px;
-      border-radius: 6px;
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .nav-link:hover {
-      background: var(--primary-light);
-      color: var(--primary-dark);
-    }
-
-    /* Main Content Area */
-    .main-content {
-      flex-grow: 1;
-      padding: 40px 48px;
-      max-width: 1100px;
-    }
-
-    /* Header Banner */
-    .hero-banner {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #ffffff;
-      padding: 36px;
-      border-radius: 12px;
-      margin-bottom: 40px;
-      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
-      border: 1px solid #334155;
-    }
-
-    .hero-banner h1 {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .hero-banner p {
-      font-size: 15px;
-      color: #cbd5e1;
-      max-width: 780px;
-      line-height: 1.6;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .hero-badge {
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.25);
-    }
-
-    /* Section Styling */
-    .section-block {
-      margin-bottom: 48px;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--secondary);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .section-title-num {
-      background: var(--primary);
-      color: #ffffff;
-      width: 30px;
-      height: 30px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    /* Question Cards */
-    .qa-card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 10px;
-      padding: 26px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .qa-card:hover {
-      border-color: #cbd5e1;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .qa-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .qa-number {
-      background: var(--secondary);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 5px;
-      margin-top: 2px;
-      white-space: nowrap;
-    }
-
-    .qa-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--secondary);
-      line-height: 1.4;
-    }
-
-    .qa-tags {
-      margin-bottom: 14px;
-    }
-
-    .tag {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-right: 6px;
-    }
-
-    .tag-arch { background: var(--accent-purple-bg); color: var(--accent-purple); }
-    .tag-concur { background: var(--accent-red-bg); color: var(--accent-red); }
-    .tag-db { background: var(--accent-amber-bg); color: var(--accent-amber); }
-    .tag-front { background: var(--primary-light); color: var(--primary-dark); }
-    .tag-sec { background: var(--accent-green-bg); color: var(--accent-green); }
-    .tag-star { background: #fef08a; color: #854d0e; }
-
-    .intent-box {
-      background: #f8fafc;
-      border-left: 3px solid var(--accent-purple);
-      padding: 10px 14px;
-      border-radius: 0 6px 6px 0;
-      margin-bottom: 16px;
-      font-size: 13px;
-      color: var(--text-main);
-    }
-
-    .intent-box strong {
-      color: var(--accent-purple);
-    }
-
-    .answer-body {
-      color: #334155;
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .answer-body p {
-      margin-bottom: 12px;
-    }
-
-    .answer-body ul, .answer-body ol {
-      margin-left: 22px;
-      margin-bottom: 14px;
-    }
-
-    .answer-body li {
-      margin-bottom: 6px;
-    }
-
-    /* Highlight & Tip Boxes */
-    .callout-pro {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-left: 4px solid var(--accent-green);
-      padding: 12px 16px;
-      border-radius: 6px;
-      margin: 16px 0;
-      font-size: 13.5px;
-      color: #14532d;
-    }
-
-    .callout-warn {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-left: 4px solid var(--accent-amber);
-      padding: 12px 16px;
-      border-radius: 6px;
-      margin: 16px 0;
-      font-size: 13.5px;
-      color: #92400e;
-    }
-
-    /* Code Snippets */
-    .code-wrapper {
-      position: relative;
-      margin: 14px 0;
-    }
-
-    pre {
-      background: var(--code-bg);
-      color: var(--code-text);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12.5px;
-      padding: 16px 18px;
-      border-radius: 8px;
-      overflow-x: auto;
-      line-height: 1.55;
-      border: 1px solid #334155;
-    }
-
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 12px;
-      background: #f1f5f9;
-      color: #b91c1c;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-
-    pre code {
-      background: transparent;
-      color: inherit;
-      padding: 0;
-    }
-
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #ffffff;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .copy-btn:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    .ascii-box {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      padding: 14px 16px;
-      border-radius: 6px;
-      font-family: ui-monospace, Menlo, Consolas, monospace;
-      font-size: 12px;
-      line-height: 1.45;
-      color: #0f172a;
-      white-space: pre;
-      overflow-x: auto;
-      margin: 14px 0;
-    }
-
-    /* Table */
-    .cheat-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 14px;
-      font-size: 13.5px;
-    }
-
-    .cheat-table th {
-      background: #f1f5f9;
-      text-align: left;
-      padding: 12px;
-      border-bottom: 2px solid #cbd5e1;
-      font-weight: 700;
-      color: var(--secondary);
-    }
-
-    .cheat-table td {
-      padding: 12px;
-      border-bottom: 1px solid #e2e8f0;
-      vertical-align: top;
-    }
-
-    .cheat-table tr:hover td {
-      background: #f8fafc;
-    }
-
-    /* Footer */
-    .page-footer {
-      margin-top: 60px;
-      padding: 24px 0;
-      border-top: 1px solid var(--surface-border);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .sidebar {
-        display: none;
-      }
-      .main-content {
-        padding: 24px;
-      }
-      .hero-banner {
-        padding: 24px;
-      }
-    }
-  </style>
+  code {
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.88em;
+  }
+  .callout-code-sample code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+</style>
 </head>
 <body>
 
-<div class="app-layout">
-
-  <!-- Sidebar -->
+<div class="layout">
+  <!-- SIDEBAR NAVIGATION -->
   <aside class="sidebar">
-    <div class="sidebar-header">
-      <h2>VitalQ Mastery</h2>
-      <div class="tagline">Senior Interview Guide</div>
+    <div class="sidebar-brand">
+      VitalQ Master Guide
+      <span class="sidebar-badge">6 LPA+ BIBLE</span>
     </div>
-    <div class="sidebar-search">
-      <input type="text" id="searchInput" placeholder="Filter questions (e.g. SignalR, Mutex, Index)..." onkeyup="filterQuestions()">
+    <div class="sidebar-subtitle">
+      Muhammed Aslam · Complete 360° Technical Defense
     </div>
-    <div class="sidebar-nav">
-      <div class="nav-category">Overview & Pitch</div>
-      <a href="#q0" class="nav-link">Q00: 60-Second Pitch</a>
-      <a href="#q1" class="nav-link">Q01: Problem Statement</a>
-      <a href="#q2" class="nav-link">Q02: High-Level Architecture</a>
 
-      <div class="nav-category">System Architecture</div>
-      <a href="#q3" class="nav-link">Q03: SignalR vs Polling vs SSE</a>
-      <a href="#q4" class="nav-link">Q04: Modular Monolith Rationale</a>
-      <a href="#q5" class="nav-link">Q05: DI Lifetimes & Captive Dependencies</a>
-      <a href="#q6" class="nav-link">Q06: SignalR Lifecycle & Auto-Reconnect</a>
+    <div class="nav-group">
+      <div class="nav-header">1. Architecture &amp; Overview</div>
+      <a href="#cat-intro" class="nav-link">Project Pitch &amp; High-Level Design</a>
+      <a href="#cat-arch-details" class="nav-link">N-Tier Clean Architecture</a>
+    </div>
 
-      <div class="nav-category">Concurrency & Mutex</div>
-      <a href="#q7" class="nav-link">Q07: The 401 Thundering Herd Bug</a>
-      <a href="#q8" class="nav-link">Q08: RxJS shareReplay Mutex Code</a>
-      <a href="#q9" class="nav-link">Q09: X-VitalQ-Retry Infinite Loop Guard</a>
-      <a href="#q10" class="nav-link">Q10: .Result Deadlocks & ThreadPool</a>
-      <a href="#q11" class="nav-link">Q11: DbContext Scoped Concurrency</a>
+    <div class="nav-group">
+      <div class="nav-header">2. Real-Time &amp; SignalR</div>
+      <a href="#cat-signalr-rooms" class="nav-link">SignalR Multi-Group Routing</a>
+      <a href="#cat-signalr-reconnect" class="nav-link">Dynamic JWT Access Token Factory</a>
+      <a href="#cat-signalr-bugs" class="nav-link">Case-Sensitivity &amp; Drop Fixes</a>
+    </div>
 
-      <div class="nav-category">Database & SQL Tuning</div>
-      <a href="#q12" class="nav-link">Q12: Clustered vs Filtered Indexes</a>
-      <a href="#q13" class="nav-link">Q13: Filtered IX_Users_RefreshToken</a>
-      <a href="#q14" class="nav-link">Q14: Covering Index & INCLUDE Clause</a>
-      <a href="#q15" class="nav-link">Q15: SQL Sargability Deep Dive</a>
-      <a href="#q16" class="nav-link">Q16: Slot Booking Race Conditions</a>
+    <div class="nav-group">
+      <div class="nav-header">3. Doctor Consultation Engine</div>
+      <a href="#cat-stopwatch" class="nav-link">Pacing Stopwatch &amp; UTC Offset Bug</a>
+      <a href="#cat-absentee" class="nav-link">3-Strike Absentee &amp; No-Show Logic</a>
+      <a href="#cat-notes" class="nav-link">Two-Tier Clinical Documentation</a>
+    </div>
 
-      <div class="nav-category">Clinical Algorithms</div>
-      <a href="#q17" class="nav-link">Q17: CTAS Vitals Scoring Engine</a>
-      <a href="#q18" class="nav-link">Q18: Code-Red Emergency Bypass</a>
-      <a href="#q19" class="nav-link">Q19: Anti-Starvation Mathematical Loop</a>
+    <div class="nav-group">
+      <div class="nav-header">4. CTAS Emergency Triage</div>
+      <a href="#cat-ctas" class="nav-link">CTAS Levels 1–5 Scoring Engine</a>
+      <a href="#cat-starvation" class="nav-link">Anti-Starvation Aging Algorithm</a>
+      <a href="#cat-requeue" class="nav-link">Nurse Re-Queue Workflow</a>
+    </div>
 
-      <div class="nav-category">Angular 19 & Frontend</div>
-      <a href="#q20" class="nav-link">Q20: Angular Signals vs Observables</a>
-      <a href="#q21" class="nav-link">Q21: ChangeDetectionStrategy.OnPush</a>
-      <a href="#q22" class="nav-link">Q22: Zone.js runOutsideAngular</a>
-      <a href="#q23" class="nav-link">Q23: CSS Transform Modal Trapping</a>
+    <div class="nav-group">
+      <div class="nav-header">5. Security, Auth &amp; Concurrency</div>
+      <a href="#cat-mutex" class="nav-link">RxJS Concurrency Mutex (Race Conditions)</a>
+      <a href="#cat-hipaa" class="nav-link">15-Min HIPAA Auto-Lock (NgZone)</a>
+      <a href="#cat-ratelimit" class="nav-link">ASP.NET Core 8 Rate Limiting</a>
+      <a href="#cat-security" class="nav-link">XSS vs CSRF Protection</a>
+    </div>
 
-      <div class="nav-category">Security & HIPAA</div>
-      <a href="#q24" class="nav-link">Q24: In-Memory JWT & HttpOnly Cookies</a>
-      <a href="#q25" class="nav-link">Q25: Dual-Revocation on Logout</a>
-      <a href="#q26" class="nav-link">Q26: Native .NET 8 Rate Limiting</a>
-      <a href="#q27" class="nav-link">Q27: HIPAA 15-Min Inactivity Auto-Lock</a>
+    <div class="nav-group">
+      <div class="nav-header">6. EF Core &amp; SQL Optimization</div>
+      <a href="#cat-efcore" class="nav-link">N+1 Queries &amp; .AsNoTracking()</a>
+      <a href="#cat-filtered-index" class="nav-link">Filtered B-Tree on RefreshToken</a>
+      <a href="#cat-covering-index" class="nav-link">Covering Indexes &amp; Seeks vs Scans</a>
+      <a href="#cat-transactions" class="nav-link">Database Transactions &amp; Locks</a>
+    </div>
 
-      <div class="nav-category">STAR Scenarios & Scaling</div>
-      <a href="#q28" class="nav-link">Q28: Hardest Concurrency Bug (STAR)</a>
-      <a href="#q29" class="nav-link">Q29: Scaling to 100 Hospitals (10x)</a>
-      <a href="#q30" class="nav-link">Q30: 20 Rapid-Fire Cheat Sheet</a>
+    <div class="nav-group">
+      <div class="nav-header">7. Angular 19 Deep-Dive</div>
+      <a href="#cat-signals" class="nav-link">Signals, Computed &amp; Effects</a>
+      <a href="#cat-standalone" class="nav-link">Standalone Components &amp; OnPush</a>
+      <a href="#cat-audio" class="nav-link">Native Web Audio API Chime</a>
+      <a href="#cat-memory" class="nav-link">Preventing Memory Leaks</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-header">8. Live Coding &amp; Web API</div>
+      <a href="#cat-di" class="nav-link">DI Lifetimes (Scoped/Singleton/Transient)</a>
+      <a href="#cat-claims" class="nav-link">Extracting User ID from JWT Claims</a>
+      <a href="#cat-exceptions" class="nav-link">Global Exception Middleware (RFC 7807)</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-header">9. Senior Scalability &amp; Design</div>
+      <a href="#cat-scale" class="nav-link">Scaling to 50 Hospitals (Redis/Sharding)</a>
+      <a href="#cat-race" class="nav-link">Simultaneous Doctor Summons</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-header">10. Behavioral &amp; Storytelling</div>
+      <a href="#cat-bugs" class="nav-link">Hardest Bug Solved (STAR Method)</a>
+      <a href="#cat-differently" class="nav-link">What Would You Do Differently?</a>
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-
-    <!-- Hero Banner -->
-    <div class="hero-banner">
-      <h1>VitalQ: Technical Interview Mastery Bible</h1>
-      <p>
-        The definitive, high-impact interview preparation guide for Muhammed Aslam. Grounded in the real production codebase of VitalQ (.NET 8 Web API, Angular 19, SignalR WebSockets, and SQL Server B-tree Indexing) to ace Senior Full-Stack Engineer interviews for 6–10+ LPA roles.
+    <div class="page-header">
+      <h1 class="page-title">VitalQ Technical Interview Master Bible</h1>
+      <p class="page-desc">
+        The ultimate 360-degree technical defense guide for .NET 8, Angular 19, SignalR, and SQL Server. Designed specifically to secure ₹6 LPA+ offers at top Kochi/Bangalore product companies and MNCs.
       </p>
-      <div class="hero-badges">
-        <span class="hero-badge">.NET 8 Web API</span>
-        <span class="hero-badge">Angular 19 Signals</span>
-        <span class="hero-badge">SignalR WebSockets</span>
-        <span class="hero-badge">SQL Server High-Perf Indexing</span>
-        <span class="hero-badge">RxJS Mutex Lock</span>
-        <span class="hero-badge">HIPAA Compliance</span>
-      </div>
     </div>
 
-    <!-- OVERVIEW & PITCH -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">0</span>
-        The 60-Second Elevator Pitch & System Foundation
-      </div>
+    <!-- SEARCH BAR -->
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="Type any keyword to instantly filter questions (e.g. SignalR, Mutex, CTAS, AsNoTracking, UTC, Signals, DI, Index Seek)..." onkeyup="filterQuestions()">
+    </div>
 
-      <!-- Q0 -->
-      <div class="qa-card" id="q0">
-        <div class="qa-header">
-          <span class="qa-number">Q 00</span>
-          <div class="qa-title">"Muhammed, walk me through your flagship project VitalQ. What problem does it solve and what is its architecture?"</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-star">Elevator Pitch</span>
-          <span class="tag tag-arch">Architecture</span>
-        </div>
-        <div class="intent-box">
-          <strong>Interviewer Intent:</strong> Evaluating communication clarity, technical depth, passion, and ability to summarize a complex full-stack system under 60 seconds without stumbling.
-        </div>
-        <div class="answer-body">
-          <p><strong>Deliver this with confidence and steady pacing:</strong></p>
-          <p>
-            <em>"VitalQ is a real-time, clinical queue intelligence and emergency patient triage platform engineered to eliminate hospital emergency room overcrowding and preventable wait-time deaths. In traditional hospitals, patients wait on static lists where rapid clinical deterioration goes completely undetected."</em>
-          </p>
-          <p>
-            <em>"Architecturally, it is built on <strong>.NET 8 Web API</strong> and <strong>Angular 19</strong>, connected through bidirectional <strong>SignalR WebSockets</strong>. When patient vitals (SpO2, blood pressure, pulse) are submitted at intake, an automated <strong>Canadian Triage and Acuity Scale (CTAS)</strong> triage engine computes clinical acuity levels (Levels 1 through 5). If severe shock or hypoxia is detected, it triggers an instant <strong>Code-Red Emergency Bypass</strong> that dynamically reorders doctor queues across the hospital in under 100 milliseconds."</em>
-          </p>
-          <p>
-            <em>"To prevent lower-acuity patients from being indefinitely delayed while emergencies are handled, I built an asynchronous <strong>Anti-Starvation Mathematical Aging Loop</strong>. On the database layer, I tuned SQL Server with <strong>Filtered B-tree and Composite Covering Indexes</strong> to maintain sub-15ms query execution under 100k records. On the frontend, I utilized <strong>Angular Signals with OnPush change detection</strong> and resolved complex concurrency issues like the <strong>Thundering Herd 401 token refresh race condition</strong> using an RxJS <code>shareReplay</code> mutex lock."</em>
-          </p>
-          <div class="callout-pro">
-            <strong>Why this works:</strong> It demonstrates business domain empathy (patient survival), architectural mastery (.NET 8 + Angular 19 + SignalR), mathematical algorithm design (CTAS & aging formula), database optimization (B-tree indexing), and deep frontend concurrency (RxJS mutex).
-          </div>
-        </div>
+    <!-- ============================================================ -->
+    <!-- SECTION 1: ELEVATOR PITCH & HIGH-LEVEL ARCHITECTURE -->
+    <!-- ============================================================ -->
+    <section id="cat-intro" class="category-section">
+      <div class="category-title">
+        1. Project Overview &amp; Clean N-Tier Architecture
+        <span class="qa-tag tag-arch">Core</span>
       </div>
+      <p class="category-desc">How to deliver an authoritative project pitch and explain the backend architectural boundaries.</p>
 
       <!-- Q1 -->
-      <div class="qa-card" id="q1">
-        <div class="qa-header">
-          <span class="qa-number">Q 01</span>
-          <div class="qa-title">What clinical problem does VitalQ solve that standard hospital management systems fail at?</div>
+      <div class="qa-card">
+        <div class="qa-question">
+          Q1: Can you give a 2-minute overview of VitalQ and the core problem it solves?
+          <span class="qa-tag tag-arch">Architecture</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">Domain Modeling</span>
-        </div>
-        <div class="answer-body">
-          <p>Standard Hospital Information Systems (HIS) treat patient queues as <strong>FIFO (First-In, First-Out)</strong> or static appointment slots. This creates two catastrophic clinical failures:</p>
+        <div class="qa-answer">
+          <p><b>Strong Answer to deliver:</b></p>
+          <p>
+            "<b>VitalQ</b> is a real-time hospital Outpatient Department (OPD) queue orchestration platform built using <b>ASP.NET Core 8 Web API, Angular 19, SignalR WebSockets, and Microsoft SQL Server</b>.
+          </p>
+          <p>
+            In conventional hospitals, OPD waiting rooms suffer from two major problems:
+          </p>
           <ol>
-            <li><strong>Silent In-Queue Deterioration:</strong> A patient arriving with mild chest pain at 10:00 AM may develop acute myocardial infarction by 10:45 AM. Without continuous triage re-assessment, they remain stuck behind non-urgent cases.</li>
-            <li><strong>Queue Starvation (The Priority Inversion Problem):</strong> In manual priority triage, whenever emergent patients arrive, doctors treat them first. During a continuous surge of severe cases, minor-injury patients can wait 8+ hours without care.</li>
+            <li><b>Blind Waiting:</b> Patients hold physical paper slips with zero visibility into queue movement, leading to crowded hallways and constant interruptions at doctor consultation doors.</li>
+            <li><b>First-Come-First-Serve (FIFO) Danger:</b> Critical emergency patients (such as severe hypoxia or acute chest pain) are forced to wait behind routine checkups because traditional queues do not factor in clinical acuity.</li>
           </ol>
-          <p>VitalQ solves both: automated CTAS classification flags sudden vital drops instantly via SignalR push, while a mathematical aging formula guarantees that long wait times systematically elevate priority so no patient is left stranded.</p>
+          <p>
+            I engineered VitalQ to solve this with 4 synchronized modules:
+          </p>
+          <ul>
+            <li><b>Patient Tracker &amp; Portal:</b> Live countdown showing exact 'Patients Ahead' and estimated wait times, ringing a dual-tone audio chime when summoned.</li>
+            <li><b>Nurse Triage Desk:</b> Evaluates patient vitals using the Canadian Triage &amp; Acuity Scale (CTAS Levels 1–5) to instantly fast-track high-acuity cases.</li>
+            <li><b>Doctor Console:</b> Provides a live consultation pacing stopwatch and an automated 3-strike absentee management protocol.</li>
+            <li><b>Admin Command Center:</b> Displays live hospital KPIs, reflecting physician availability and OPD patient flow with zero page reloads.</li>
+          </ul>
         </div>
       </div>
 
       <!-- Q2 -->
-      <div class="qa-card" id="q2">
-        <div class="qa-header">
-          <span class="qa-number">Q 02</span>
-          <div class="qa-title">Give an end-to-end trace of a patient intake request through the system layers.</div>
+      <div class="qa-card" id="cat-arch-details">
+        <div class="qa-question">
+          Q2: Explain the N-Tier Clean Architecture you followed in the backend.
+          <span class="qa-tag tag-csharp">.NET 8</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">System Flow</span>
-          <span class="tag tag-front">Angular</span>
-          <span class="tag tag-db">SQL Server</span>
-        </div>
-        <div class="answer-body">
-          <div class="ascii-box">
-[Nurse Tablet (Angular 19)]
-       |
-       | 1. HTTP POST /api/triage/assess (Bearer JWT in memory)
-       v
-[Reverse Proxy / Kestrel (.NET 8)]
-       |
-       | 2. Rate Limiting Middleware (IP & Account check)
-       | 3. JWT Authentication & Claims Validation ([Authorize(Roles="Nurse,Doctor")])
-       v
-[TriageController -> ITriageService]
-       |
-       | 4. CTAS Scoring Engine calculates Acuity Level (1-5) & BaseWeight
-       v
-[VitalQDbContext (EF Core 8 / Scoped)]
-       |
-       | 5. Atomic Transaction: Insert Vitals -> Insert QueueEntry -> Commit
-       | 6. Filtered Indexes update instantly in SQL Server buffer pool
-       v
-[IHubContext<QueueHub> (SignalR)]
-       |
-       | 7. Clients.Group("dept_Cardiology").SendAsync("QueueUpdated", payload)
-       v
-[Doctor Dashboard (Angular 19 OnPush)]
-       |
-       | 8. Signal receives payload -> Template updates in <100ms
-       | 9. If Code-Red: Audio alert & Emergency Red Banner triggered
-          </div>
+        <div class="qa-answer">
+          <p>
+            "I architected the backend into four distinct, loosely coupled layers:
+          </p>
+          <ul>
+            <li><b>VitalQ.Entities:</b> Houses core domain entities (<code>QueueToken</code>, <code>Doctor</code>, <code>TriageAssessment</code>, <code>Department</code>), enums, and DTOs. It has zero external dependencies.</li>
+            <li><b>VitalQ.DataAccess:</b> Manages the Entity Framework Core <code>AppDbContext</code>, database configurations, and 23 physical database indexes.</li>
+            <li><b>VitalQ.BusinessLogic:</b> Contains pure business logic services (<code>DoctorService</code>, <code>NurseService</code>, <code>QueueService</code>, <code>AuthService</code>) encapsulating validation, CTAS scoring algorithms, and token status state machines.</li>
+            <li><b>VitalQ.API:</b> The presentation layer exposing RESTful Web API endpoints, JWT Bearer authentication, ASP.NET Core 8 Rate Limiting middleware, and the SignalR <code>QueueHub</code>.</li>
+          </ul>
+          <p>
+            This strictly adheres to the <b>Single Responsibility Principle (SRP)</b> and <b>Dependency Inversion Principle (DIP)</b>. Controllers depend only on service interfaces (e.g. <code>IDoctorService</code>), making the codebase easy to maintain, unit test, and scale."
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- SYSTEM ARCHITECTURE -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">1</span>
-        System Architecture & Real-Time WebSockets
+    <!-- ============================================================ -->
+    <!-- SECTION 2: SIGNALR & REAL-TIME WEBSOCKETS -->
+    <!-- ============================================================ -->
+    <section id="cat-signalr-rooms" class="category-section">
+      <div class="category-title">
+        2. Real-Time WebSockets &amp; SignalR Architecture
+        <span class="qa-tag tag-signalr">SignalR</span>
       </div>
+      <p class="category-desc">Deep-dive technical questions on multi-room routing, reconnection policies, and event push.</p>
 
       <!-- Q3 -->
-      <div class="qa-card" id="q3">
-        <div class="qa-header">
-          <span class="qa-number">Q 03</span>
-          <div class="qa-title">Why did you choose SignalR WebSockets over Short/Long Polling or Server-Sent Events (SSE)?</div>
+      <div class="qa-card">
+        <div class="qa-question">
+          Q3: Why did you choose SignalR over HTTP Polling or Server-Sent Events (SSE)?
+          <span class="qa-tag tag-signalr">SignalR</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">Networking</span>
-          <span class="tag tag-perf">Efficiency</span>
-        </div>
-        <div class="intent-box">
-          <strong>Interviewer Intent:</strong> Testing knowledge of TCP handshakes, HTTP/1.1 vs HTTP/2 header overhead, bidirectional data transport, and battery/network constraints in hospitals.
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
+          <p>
+            "In high-volume hospital OPDs with hundreds of active patients tracking tickets, <b>polling every 3–5 seconds creates massive database overhead</b>, flooding SQL Server with redundant <code>SELECT</code> queries where 95% of calls return identical data.
+          </p>
+          <p>
+            <b>Server-Sent Events (SSE)</b> is unidirectional (server to client only). While lightweight, it lacks native bi-directional client negotiation and automatic transport fallback.
+          </p>
+          <p>
+            <b>SignalR</b> was the best architectural choice because:
+          </p>
           <ul>
-            <li><strong>Severe Overhead of Short Polling:</strong> In a hospital with 50 doctor terminals polling every 2 seconds, the backend handles 1,500 requests/minute. Each HTTP request involves TCP/TLS overhead and 1–2 KB of repeated HTTP headers (Cookies, JWT, User-Agent) even when the queue hasn't changed.</li>
-            <li><strong>Limitations of SSE (Server-Sent Events):</strong> SSE is strictly half-duplex (server-to-client). While efficient for notifications, client-to-server operations (like a doctor calling the next patient or updating a triage status) must be initiated through separate HTTP POST calls, splitting the transport architecture into two channels.</li>
-            <li><strong>SignalR WebSockets (Full Duplex & Minimal Framing):</strong> After the initial HTTP 101 Switching Protocols handshake, a single persistent TCP connection remains open. Messages are transmitted in lightweight frames with only 2 to 10 bytes of framing overhead.</li>
-            <li><strong>Fallback Grace:</strong> SignalR transparently falls back to SSE or Long Polling if a restrictive hospital firewall blocks raw WebSocket connections, providing 100% network resilience out of the box.</li>
+            <li>It establishes a persistent, duplex <b>WebSocket connection</b>, reducing network traffic and latency by over 95%.</li>
+            <li>It natively supports <b>Group Targeting (Rooms)</b>, allowing targeted broadcasts exclusively to specific rooms rather than blasting the entire hospital.</li>
+            <li>It provides graceful transport fallback (WebSockets &rarr; Server-Sent Events &rarr; Long Polling) for older hospital terminals or restrictive proxy firewalls.</li>
           </ul>
         </div>
       </div>
 
       <!-- Q4 -->
-      <div class="qa-card" id="q4">
-        <div class="qa-header">
-          <span class="qa-number">Q 04</span>
-          <div class="qa-title">Why did you architect VitalQ as a Modular Monolith instead of Microservices?</div>
+      <div class="qa-card">
+        <div class="qa-question">
+          Q4: How does your SignalR multi-group routing work across all 4 modules?
+          <span class="qa-tag tag-signalr">SignalR</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">System Design</span>
-        </div>
-        <div class="intent-box">
-          <strong>Interviewer Intent:</strong> Testing architectural pragmatism. Senior engineers know when NOT to build microservices.
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            <em>"Microservices are designed to solve organizational scaling problems (100+ engineers across multiple teams), not necessarily performance problems. Introducing microservices into VitalQ would have created unnecessary operational complexity:"</em>
+            "In <code>QueueHub.cs</code>, clients do not listen to a single global channel. Instead, I structured targeted SignalR rooms:
           </p>
           <ul>
-            <li><strong>Data Consistency & Distributed Transactions:</strong> Patient check-in, vital recording, triage acuity scoring, and queue assignment must succeed or fail together. In microservices, this requires complex distributed transaction orchestrators (Saga pattern, outbox tables, compensating transactions) and risks eventual consistency anomalies in life-critical workflows.</li>
-            <li><strong>Sub-Millisecond In-Memory Calls:</strong> In our Modular Monolith, the Triage Engine, Queue Service, and Audit Logger communicate through high-performance C# method calls and in-memory events rather than gRPC/REST serialization over network hops.</li>
-            <li><strong>Strict Modular Boundaries:</strong> I decoupled modules using 1:1 interfaces (e.g. <code>ITriageService</code>, <code>IQueueService</code>, <code>IAuthService</code>) and separate folders/DTOs. If any individual module (like Notifications or Reporting) ever requires independent horizontal scaling, it can be extracted into an independent microservice with zero code rewriting.</li>
+            <li><code>doctor-{doctorId}</code>: Subscribed to by the doctor console, and also by all patients waiting in that doctor's line.</li>
+            <li><code>patient-{tokenId}</code>: Subscribed to by the individual patient holding that token slip (for audio summons and room alerts).</li>
+            <li><code>nurse-station</code>: Subscribed to by triage nurses to receive new walk-in bookings and doctor availability toggles.</li>
+            <li><code>admin-dashboard</code>: Subscribed to by administrators for real-time aggregated KPI counts.</li>
           </ul>
+          <p>
+            When a doctor calls a patient via <code>NotifyPatientCalledAsync(token)</code>:
+          </p>
+          <ol>
+            <li>The summoned patient in <code>patient-{tokenId}</code> receives <code>PatientCalled</code> (triggers audio chime and flashing screen).</li>
+            <li>The doctor room <code>doctor-{doctorId}</code> receives <code>QueueUpdated</code>, causing all subsequent patients in line to decrement their 'Patients Ahead' count immediately.</li>
+            <li>The <code>admin-dashboard</code> receives <code>QueueUpdated</code> to refresh queue metrics silently without a page reload.</li>
+          </ol>
         </div>
       </div>
 
       <!-- Q5 -->
-      <div class="qa-card" id="q5">
-        <div class="qa-header">
-          <span class="qa-number">Q 05</span>
-          <div class="qa-title">Explain Dependency Injection lifetimes in .NET 8. What is a "Captive Dependency" and how did you prevent it?</div>
+      <div class="qa-card" id="cat-signalr-reconnect">
+        <div class="qa-question">
+          Q5: How do you handle JWT authentication inside SignalR, and what happens when hospital Wi-Fi drops?
+          <span class="qa-tag tag-signalr">SignalR &amp; Security</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">.NET 8 Core</span>
-          <span class="tag tag-concur">Memory Safety</span>
-        </div>
-        <div class="answer-body">
-          <p>In .NET 8, the built-in IoC container supports three lifetimes:</p>
-          <ul>
-            <li><strong>Transient:</strong> Instantiated every time they are requested. Used for lightweight, stateless utilities.</li>
-            <li><strong>Scoped:</strong> Instantiated once per incoming HTTP request pipeline. All database contexts (<code>VitalQDbContext</code>) and business services (<code>QueueService</code>) are Scoped.</li>
-            <li><strong>Singleton:</strong> Instantiated once at application startup and shared across the entire application lifecycle (e.g. in-memory caches, background task schedulers).</li>
-          </ul>
-          <div class="callout-warn">
-            <strong>The "Captive Dependency" Danger:</strong><br>
-            If a <code>Singleton</code> service holds a reference to a <code>Scoped</code> service (e.g., injecting <code>VitalQDbContext</code> into a singleton background worker), the Scoped service is captured and kept alive indefinitely. This causes:
-            <ol>
-              <li><strong>Memory Bloat:</strong> EF Core change trackers continuously accumulate entity references without garbage collection.</li>
-              <li><strong>Thread Concurrency Crash:</strong> <code>DbContext</code> is <em>not thread-safe</em>. Parallel requests invoke methods on the singleton simultaneously, causing <code>InvalidOperationException: A second operation was started on this context instance before a previous operation completed</code>.</li>
-            </ol>
-            <strong>The VitalQ Solution:</strong> In our background workers (like <code>AntiStarvationWorker</code>), we inject <code>IServiceScopeFactory</code>, creating an explicit scope per execution:
-            <pre><code>using var scope = _scopeFactory.CreateScope();
-var db = scope.ServiceProvider.GetRequiredService&lt;VitalQDbContext&gt;();
-// Deterministically disposed when using block exits!</code></pre>
+        <div class="qa-answer">
+          <p>
+            "Standard browser WebSockets do not support custom HTTP Authorization headers during the initial WebSocket handshake. 
+          </p>
+          <p>
+            To solve this, in <code>Program.cs</code>, I configured the JWT Bearer authentication options to read the access token from the query string <code>context.Request.Query['access_token']</code> whenever the request path starts with <code>/hubs/queue</code>.
+          </p>
+          <p>
+            <b>The Critical Reconnection Resilience Fix:</b><br>
+            If a triage nurse or doctor experiences an intermittent hospital Wi-Fi disconnect, SignalR automatically reconnects using <code>withAutomaticReconnect([0, 2000, 5000, 10000, 30000])</code>.
+          </p>
+          <p>
+            If you pass a static token string, reconnecting 30 minutes later transmits an expired token, causing an unrecoverable 401 Unauthorized socket drop. In <code>signalr.service.ts</code>, I implemented a <b>dynamic lambda factory</b>:
+          </p>
+          <div class="callout-code-sample">
+this.hubConnection = new signalR.HubConnectionBuilder()
+  .withUrl(environment.signalrUrl, {
+    // Dynamic factory lambda: evaluates latest rotated JWT from storage on EVERY reconnect!
+    accessTokenFactory: () => localStorage.getItem('vq_token') || ''
+  })
+  .withAutomaticReconnect()
+  .build();
           </div>
+          <p>
+            This ensures that even after a connection drop, the freshly refreshed JWT is transmitted during the re-handshake."
+          </p>
         </div>
       </div>
 
       <!-- Q6 -->
-      <div class="qa-card" id="q6">
-        <div class="qa-header">
-          <span class="qa-number">Q 06</span>
-          <div class="qa-title">How does SignalR manage connection lifecycles, group subscriptions, and Wi-Fi dropouts in hospital terminals?</div>
+      <div class="qa-card" id="cat-signalr-bugs">
+        <div class="qa-question">
+          Q6: What was the case-normalization bug in your SignalR groups?
+          <span class="qa-tag tag-signalr">Debugging</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">SignalR</span>
-          <span class="tag tag-front">Angular</span>
-        </div>
-        <div class="answer-body">
-          <ul>
-            <li><strong>Targeted Department Groups:</strong> In <code>QueueHub</code>, when a client connects with a JWT claim indicating their department, we call <code>await Groups.AddToGroupAsync(Context.ConnectionId, $"dept_{deptId}")</code>. Updates are broadcast strictly to relevant departments via <code>Clients.Group($"dept_{deptId}").SendAsync(...)</code>, preventing unnecessary network traffic on doctor terminals in unrelated departments.</li>
-            <li><strong>Heartbeats & Keep-Alive:</strong> The server sends periodic ping frames (default every 15 seconds). If a terminal moves into a hospital dead zone and misses pings, the client drops the broken TCP socket immediately rather than hanging indefinitely.</li>
-            <li><strong>Automatic Reconnection Strategy:</strong> In the Angular <code>QueueSignalRService</code>, the connection is configured with an exponential backoff policy:
-            <pre><code>this.hubConnection = new HubConnectionBuilder()
-  .withUrl('/api/hubs/queue', { accessTokenFactory: () =&gt; this.authService.getAccessToken() })
-  .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
-  .build();
-
-this.hubConnection.onreconnected(() =&gt; {
-  // Re-sync full queue state to catch any missed updates during disconnect
-  this.refreshFullQueue();
-});</code></pre>
-            </li>
-          </ul>
+        <div class="qa-answer">
+          <p>
+            "In early testing, some doctor queue notifications were randomly dropping. I debugged the SignalR hub and discovered a subtle case-sensitivity mismatch:
+          </p>
+          <p>
+            When a doctor logged in, the Angular client joined <code>doctor-a3f89b...</code> (lowercase GUID string from route params). However, the backend notification service was constructing the group name via <code>$"doctor-{token.DoctorId}"</code>, which ASP.NET Core formatted in uppercase <code>doctor-A3F89B...</code> on certain OS environments.
+          </p>
+          <p>
+            Because SignalR group names are string-matched with case-sensitivity, the messages were silently routed into an empty room!
+          </p>
+          <p>
+            <b>Fix:</b> I enforced strict <code>.ToLowerInvariant()</code> normalization on both the backend hub methods and the frontend client service, ensuring 100% reliable group subscriptions."
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- CONCURRENCY & MUTEX -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">2</span>
-        Concurrency, Asynchronous Programming & RxJS Mutex
+    <!-- ============================================================ -->
+    <!-- SECTION 3: DOCTOR CONSULTATION & ABSENTEE POLICY -->
+    <!-- ============================================================ -->
+    <section id="cat-stopwatch" class="category-section">
+      <div class="category-title">
+        3. Consultation Pacing &amp; Absentee Engine
+        <span class="qa-tag tag-csharp">Doctor Module</span>
       </div>
+      <p class="category-desc">Interview questions on time tracking, timezone bugs, and hospital no-show protocols.</p>
 
       <!-- Q7 -->
-      <div class="qa-card" id="q7">
-        <div class="qa-header">
-          <span class="qa-number">Q 07</span>
-          <div class="qa-title">What is the "Thundering Herd" 401 race condition, and why is it fatal in modern SPAs with token rotation?</div>
+      <div class="qa-card">
+        <div class="qa-question">
+          Q7: How did you fix the '+333m Overtime' consultation stopwatch bug?
+          <span class="qa-tag tag-angular">Timezone Engineering</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-concur">Race Condition</span>
-          <span class="tag tag-sec">JWT Security</span>
-        </div>
-        <div class="intent-box">
-          <strong>Interviewer Intent:</strong> Top-tier question testing real-world frontend concurrency, reactive programming, and API security token rotation semantics.
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            When a doctor opens the dashboard, the Angular app dispatches multiple parallel HTTP requests (e.g. <code>GET /queue</code>, <code>GET /vitals</code>, <code>GET /notifications</code>). If the 60-minute JWT has just expired, all 3 requests hit the server and return <code>401 Unauthorized</code> at the exact same millisecond.
+            "In our initial doctor console, when a doctor called a patient, the consultation duration timer suddenly jumped to <code>+333m Overtime</code> instead of starting at <code>0:00</code>.
           </p>
-          <div class="ascii-box">
-[Request 1 (401)] ===> POST /api/auth/refresh (Token A) ===> Success: Issues Token B, Revokes Token A
-[Request 2 (401)] ===> POST /api/auth/refresh (Token A) ===> CRASH! Token A is ALREADY REVOKED!
-                                                      ===> Server detects "Replay Attack" -> Invalids user!
+          <p>
+            <b>Root Cause:</b> The SQL Server database saved <code>CalledAtUtc</code> as a UTC string without an explicit trailing <code>'Z'</code> (e.g. <code>2026-10-21T10:00:00</code>). When the browser in India (IST, UTC+05:30) passed this string to <code>new Date(calledAtUtc)</code>, JavaScript defaulted to parsing it as local IST instead of UTC, causing an artificial 5-hour 30-minute (330-minute) offset!
+          </p>
+          <p>
+            <b>Solution:</b> I engineered a bulletproof helper function <code>parseUtcTimestamp(raw)</code>:
+          </p>
+          <div class="callout-code-sample">
+export function parseUtcTimestamp(raw: string | null | undefined): number {
+  if (!raw) return Date.now();
+  // Ensure trailing 'Z' is present so browser JavaScript strictly evaluates it as UTC!
+  const utcString = raw.endsWith('Z') ? raw : `${raw}Z`;
+  return new Date(utcString).getTime();
+}
           </div>
           <p>
-            Because secure backend systems implement <strong>Refresh Token Rotation</strong> (a refresh token can only be used once), Request 2 and Request 3 attempt to refresh with an already-revoked token. The backend flags this as a replay attack and terminates the user's session, logging the doctor out mid-shift!
+            Now, the timer strictly measures <code>(Date.now() - calledAtUtc)</code> in UTC milliseconds, accurately starting at <code>0:00</code> for every patient."
           </p>
         </div>
       </div>
 
       <!-- Q8 -->
-      <div class="qa-card" id="q8">
-        <div class="qa-header">
-          <span class="qa-number">Q 08</span>
-          <div class="qa-title">Walk me through your RxJS shareReplay Mutex Lock implementation in the Angular AuthInterceptor.</div>
+      <div class="qa-card" id="cat-absentee">
+        <div class="qa-question">
+          Q8: Explain your 3-Strike Absentee &amp; No-Show protocol.
+          <span class="qa-tag tag-csharp">Business Logic</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-concur">RxJS Mutex</span>
-          <span class="tag tag-front">Angular 19</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            To prevent parallel refresh requests, we implement a software mutex inside the Angular <code>HttpInterceptor</code> using a <code>BehaviorSubject</code> lock:
+            "In busy OPDs, patients frequently wander to the pharmacy or canteen. When their number is called and they are absent, doctors previously had only two bad choices: hold up the entire line waiting for them, or delete the ticket permanently.
           </p>
-          <div class="code-wrapper">
-            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-            <pre><code>@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  private isRefreshing = false;
-  private refreshTokenSubject = new BehaviorSubject&lt;string | null&gt;(null);
-
-  intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt; {
-    return next.handle(this.addToken(req)).pipe(
-      catchError(error =&gt; {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          return this.handle401Error(req, next);
-        }
-        return throwError(() =&gt; error);
-      })
-    );
-  }
-
-  private handle401Error(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt; {
-    if (!this.isRefreshing) {
-      // 1. Thread 1 acquires the lock
-      this.isRefreshing = true;
-      this.refreshTokenSubject.next(null); // Clear previous emissions
-
-      return this.authService.refreshToken().pipe(
-        switchMap((newToken: string) =&gt; {
-          this.isRefreshing = false;
-          this.refreshTokenSubject.next(newToken); // 2. Release lock & broadcast new token
-          return next.handle(this.addToken(req, newToken));
-        }),
-        catchError(err =&gt; {
-          this.isRefreshing = false;
-          this.authService.forceLogout();
-          return throwError(() =&gt; err);
-        })
-      );
-    } else {
-      // 3. Threads 2, 3, 4 wait on the BehaviorSubject until the new token is emitted
-      return this.refreshTokenSubject.pipe(
-        filter(token =&gt; token !== null), // Gatekeeper: hold until token arrives
-        take(1),                         // Unsubscribe immediately after receiving token
-        switchMap(token =&gt; next.handle(this.addToken(req, token!))) // Re-dispatch original request
-      );
-    }
-  }
-}</code></pre>
-          </div>
-          <div class="callout-pro">
-            <strong>Key RxJS Mechanics to highlight:</strong><br>
-            - <code>filter(token => token !== null)</code> acts as the gate barrier, keeping secondary requests paused until the primary refresh completes.<br>
-            - <code>take(1)</code> completes the waiting observable after one emission, preventing memory leaks and duplicate executions.
-          </div>
+          <p>
+            I engineered an automated <b>3-Strike Absentee Engine</b>:
+          </p>
+          <ul>
+            <li><b>Strike 1 &amp; 2 (Hold Queue):</b> When a doctor clicks 'Skip', an in-app confirmation modal warns the doctor of the patient's strike count. Upon confirmation, the patient's status transitions to <code>Skipped</code>, incrementing <code>SkipCount</code>, and moves to an on-hold tray. The doctor immediately calls the next patient without delay.</li>
+            <li><b>Strike 3 (Automatic Expiry):</b> If a patient is skipped a 3rd time, the system automatically transitions their token to <code>Expired</code> with an audit log reason: <i>'Automated Cancellation: 3 Unattended Calls'</i>.</li>
+            <li><b>Patient Transparency:</b> When a ticket expires or is cancelled, the exact audit reason is displayed on the patient's mobile tracker alongside a direct call-to-action to re-register at the triage desk.</li>
+          </ul>
         </div>
       </div>
 
       <!-- Q9 -->
-      <div class="qa-card" id="q9">
-        <div class="qa-header">
-          <span class="qa-number">Q 09</span>
-          <div class="qa-title">How does your custom X-VitalQ-Retry header prevent catastrophic infinite redirect loops?</div>
+      <div class="qa-card" id="cat-notes">
+        <div class="qa-question">
+          Q9: How do you separate Nurse Intake Assessment from Doctor Clinical Advice in the database?
+          <span class="qa-tag tag-sql">Database Design</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-concur">Defensive Coding</span>
-          <span class="tag tag-front">Angular</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            If a user's account is suspended or the refresh token itself has expired, the re-dispatched request will fail with <code>401 Unauthorized</code> a second time. Without a guard, this triggers another refresh cycle, entering an <strong>infinite recursion loop</strong> that floods the browser with hundreds of requests and freezes the tab.
+            "Initially, all consultation notes were dumped into a single <code>ConsultationNotes</code> text field. This caused nurse triage observations to get overwritten by the doctor's final prescription.
           </p>
           <p>
-            <strong>The Defense:</strong> Before re-dispatching any retried request, we clone it with a custom header:
+            To maintain medical audit integrity and HIPAA compliance:
           </p>
-          <pre><code>const retriedReq = req.clone({
-  setHeaders: {
-    Authorization: `Bearer ${newToken}`,
-    'X-VitalQ-Retry': 'true'
-  }
-});</code></pre>
-          <p>
-            At the top of the 401 error handler: <code>if (req.headers.has('X-VitalQ-Retry')) { this.authService.forceLogout(); return throwError(() => error); }</code>. If a request stamped with this header fails with 401, it is immediately aborted and the user is cleanly navigated to the login screen.
-          </p>
-        </div>
-      </div>
-
-      <!-- Q10 -->
-      <div class="qa-card" id="q10">
-        <div class="qa-header">
-          <span class="qa-number">Q 10</span>
-          <div class="qa-title">Why should you never use .Result or .Wait() on C# asynchronous Tasks?</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">.NET Async</span>
-          <span class="tag tag-concur">Deadlock Prevention</span>
-        </div>
-        <div class="answer-body">
           <ul>
-            <li><strong>ThreadPool Starvation:</strong> <code>.Result</code> or <code>.Wait()</code> turns an asynchronous non-blocking operation into a blocking one. The thread handling the request is held idle waiting for the I/O completion port. Under heavy hospital load, all ThreadPool worker threads become tied up waiting, leading to request queueing and severe latency spikes.</li>
-            <li><strong>Deadlock on SynchronizationContext:</strong> In environments with a captured <code>SynchronizationContext</code>, the continuation after an <code>await</code> must run on the original thread. If that thread is synchronously blocked on <code>.Result</code>, the continuation cannot execute because the thread is waiting on itself &mdash; resulting in a permanent deadlock!</li>
-            <li><strong>Clean Exception Unwinding:</strong> <code>await</code> automatically unwraps exceptions to their base type, whereas <code>.Result</code> packages them inside an <code>AggregateException</code>, obscuring root-cause analysis in logs.</li>
+            <li><b>Nurse Assessment:</b> Stored in a dedicated <code>TriageAssessments</code> table linked to <code>QueueTokenId</code>, capturing CTAS Acuity (1–5), vital signs (BP, SpO2, HR, Blood Glucose), allergies, and nurse intake observations.</li>
+            <li><b>Doctor Documentation:</b> Stored on the <code>QueueToken</code> as <code>DoctorClinicalNotes</code> and <code>Prescription</code>.</li>
+            <li><b>Audit Separation on UI:</b> On the patient portal and historical views, the interface renders two distinct, clearly labeled cards: <i>'Nurse Intake Assessment'</i> vs. <i>'Doctor Prescription / Clinical Advice'</i>.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- DATABASE & SQL TUNING -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">3</span>
-        Database Architecture & SQL Server High-Performance Indexing
+    <!-- ============================================================ -->
+    <!-- SECTION 4: CTAS EMERGENCY TRIAGE & PRIORITIZATION -->
+    <!-- ============================================================ -->
+    <section id="cat-ctas" class="category-section">
+      <div class="category-title">
+        4. CTAS Emergency Triage &amp; Prioritization
+        <span class="qa-tag tag-csharp">Clinical Algorithms</span>
+      </div>
+      <p class="category-desc">Defending the priority calculation and anti-starvation mechanics.</p>
+
+      <!-- Q10 -->
+      <div class="qa-card">
+        <div class="qa-question">
+          Q10: What is the Canadian Triage &amp; Acuity Scale (CTAS), and how is priority calculated?
+          <span class="qa-tag tag-csharp">Algorithms</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "CTAS is a standardized clinical classification system used in emergency medicine across 5 acuity levels:
+          </p>
+          <ul>
+            <li><b>Level 1 (Resuscitation):</b> Immediate life threat (e.g., cardiac arrest, SpO2 &lt; 85%). Target wait time: 0 minutes.</li>
+            <li><b>Level 2 (Emergent):</b> Potential life/limb threat (e.g., chest pain, severe tachycardia HR &gt; 130). Target wait time: &lt; 15 mins.</li>
+            <li><b>Level 3 (Urgent):</b> Moderate illness (e.g., high fever 39.5°C, mild respiratory distress). Target: &lt; 30 mins.</li>
+            <li><b>Level 4 (Less Urgent):</b> Mild pain, uncomplicated infection. Target: &lt; 60 mins.</li>
+            <li><b>Level 5 (Non-Urgent):</b> Minor symptoms, prescription refills. Target: &lt; 120 mins.</li>
+          </ul>
+          <p>
+            When a nurse records vitals in VitalQ, the engine computes an <b>Acuity Weight</b> (Level 1 = 1000 pts, Level 2 = 500 pts, down to Level 5 = 10 pts). Patients with higher priority scores jump immediately to the top of the doctor's queue."
+          </p>
+        </div>
       </div>
 
       <!-- Q11 -->
-      <div class="qa-card" id="q11">
-        <div class="qa-header">
-          <span class="qa-number">Q 11</span>
-          <div class="qa-title">Explain the difference between a Clustered Index, Non-Clustered Index, and a Filtered Index.</div>
+      <div class="qa-card" id="cat-starvation">
+        <div class="qa-question">
+          Q11: How do you prevent 'Starvation' where routine patients wait forever if emergency cases keep arriving?
+          <span class="qa-tag tag-arch">Queue Theory</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-db">SQL Server</span>
-          <span class="tag tag-perf">Index Internals</span>
-        </div>
-        <div class="answer-body">
-          <ul>
-            <li><strong>Clustered Index:</strong> Dictates the physical layout of table rows on disk pages. A table can possess only <em>one</em> clustered index (typically Primary Key <code>Id</code>). The leaf pages of the B-tree are the actual data rows.</li>
-            <li><strong>Non-Clustered Index:</strong> A separate B-tree structure. Leaf pages contain only the indexed key columns plus a pointer (Clustered Index Key or Row ID) back to the actual data row.</li>
-            <li><strong>Filtered Index:</strong> A non-clustered index configured with a <code>WHERE</code> clause. SQL Server indexes only the subset of rows that satisfy the filter expression.</li>
-          </ul>
+        <div class="qa-answer">
+          <p>
+            "This is a classic <b>Priority Inversion / Starvation</b> problem in computer science. If you only serve higher-priority patients, routine Level 4 and Level 5 patients could wait indefinitely if Level 2 patients keep arriving throughout the day.
+          </p>
+          <p>
+            I solved this by implementing an <b>Aging Algorithm</b>:
+          </p>
+          <div class="callout-code-sample">
+EffectivePriorityScore = BaseAcuityWeight + (MinutesWaiting * AgingFactor)
+          </div>
+          <p>
+            For every 15 minutes a routine patient waits without being called, their score increments. Eventually, a routine patient who has been waiting for 90 minutes will age up and be served ahead of a newly arrived non-emergency case, guaranteeing timely care and bounded wait times."
+          </p>
         </div>
       </div>
 
       <!-- Q12 -->
-      <div class="qa-card" id="q12">
-        <div class="qa-header">
-          <span class="qa-number">Q 12</span>
-          <div class="qa-title">Walk me through your Filtered Index on Users.RefreshToken. What are its exact storage and I/O advantages?</div>
+      <div class="qa-card" id="cat-requeue">
+        <div class="qa-question">
+          Q12: How does the Nurse Re-Queue Protocol work for skipped patients?
+          <span class="qa-tag tag-csharp">Workflow</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-db">SQL Server</span>
-          <span class="tag tag-perf">High Impact</span>
-        </div>
-        <div class="answer-body">
-          <p>In VitalQ, refresh token lookup occurs on every token refresh request:</p>
-          <pre><code>CREATE NONCLUSTERED INDEX [IX_Users_RefreshToken]
-ON [dbo].[Users] ([RefreshToken])
-WHERE [RefreshToken] IS NOT NULL;</code></pre>
-          <p><strong>The Architectural Advantages:</strong></p>
+        <div class="qa-answer">
+          <p>
+            "When a patient who was previously marked as <code>Skipped</code> returns to the clinic, the doctor cannot spend time finding them in the database.
+          </p>
+          <p>
+            The patient reports to the <b>Nurse Triage Desk</b>. The nurse uses the <code>RequeuePatient</code> workflow in <code>nurse-dashboard.component.ts</code>:
+          </p>
           <ol>
-            <li><strong>99% Smaller Index Footprint:</strong> In a hospital user database of 10,000 accounts (doctors, nurses, admins, inactive staff), only ~50 users have an active logged-in session with a valid refresh token at any given moment. 9,950 rows are <code>NULL</code>. A standard index would index all 10,000 rows. Our filtered index stores only the ~50 active records!</li>
-            <li><strong>Buffer Pool Cache Residency:</strong> Because the index is only a few kilobytes, SQL Server keeps the entire B-tree permanently pinned in RAM buffer pool memory. Lookups resolve in sub-millisecond B-tree seeks with zero physical disk reads.</li>
-            <li><strong>Zero Write-Amplification on Profile Updates:</strong> When inactive users update passwords, profile photos, or contact info, SQL Server skips updating <code>IX_Users_RefreshToken</code> entirely because their rows do not meet the filter predicate!</li>
+            <li>The nurse reviews the patient's current vitals to ensure their clinical status has not deteriorated while waiting.</li>
+            <li>The system resets the token status back to <code>Waiting</code>, clears the active skipped flag, but preserves the strike count history for audit accountability.</li>
+            <li>A <code>NotifyQueueUpdatedAsync</code> SignalR broadcast immediately inserts the patient back into the doctor's active queue."
           </ol>
-        </div>
-      </div>
-
-      <!-- Q13 -->
-      <div class="qa-card" id="q13">
-        <div class="qa-header">
-          <span class="qa-number">Q 13</span>
-          <div class="qa-title">What is a Composite Covering Index, and how does the INCLUDE clause eliminate Key Lookups?</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-db">SQL Server</span>
-          <span class="tag tag-perf">Query Plan Tuning</span>
-        </div>
-        <div class="answer-body">
-          <p>
-            When a query selects columns not present in a non-clustered index, SQL Server traverses the index to find the matching keys, and must then perform an expensive <strong>Key Lookup (Bookmark Lookup)</strong> back to the clustered index disk pages for each row to retrieve the remaining columns.
-          </p>
-          <p><strong>The Covering Index Solution in VitalQ:</strong></p>
-          <pre><code>CREATE NONCLUSTERED INDEX [IX_QueueEntries_Status_Priority]
-ON [dbo].[QueueEntries] ([DepartmentId], [Status], [PriorityScore] DESC)
-INCLUDE ([PatientId], [TokenNumber], [CheckInTime], [EstimatedWaitMinutes]);</code></pre>
-          <ul>
-            <li><strong>Key Columns (B-tree navigation):</strong> <code>DepartmentId</code>, <code>Status</code>, and <code>PriorityScore</code> are stored in the branch and leaf nodes, enabling fast range seeks and sorted scans.</li>
-            <li><strong>Included Columns (Leaf-level payload):</strong> <code>PatientId</code>, <code>TokenNumber</code>, etc., are stored <em>only</em> at the leaf level. They do not increase the height of the B-tree or impose indexing overhead.</li>
-            <li><strong>Query Plan Optimization:</strong> The query is <strong>100% Covered</strong>. SQL Server retrieves every requested field directly from the index leaf pages without touching the underlying table, dropping I/O cost from $O(N)$ random disk seeks to a single sequential index seek.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Q14 -->
-      <div class="qa-card" id="q14">
-        <div class="qa-header">
-          <span class="qa-number">Q 14</span>
-          <div class="qa-title">What is SQL Sargability? Provide an example of an unsargable query and its sargable rewrite.</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-db">SQL Sargability</span>
-          <span class="tag tag-perf">Performance</span>
-        </div>
-        <div class="answer-body">
-          <p>
-            <strong>SARGable = Search Argument Able</strong>. A query is sargable if the SQL Server Query Optimizer can utilize an index seek rather than having to perform a full index/table scan.
-          </p>
-          <div class="callout-warn">
-            <strong>Non-Sargable (Destroys Index Seeks):</strong><br>
-            <code>SELECT * FROM Appointments WHERE YEAR(AppointmentDate) = 2026;</code><br>
-            <em>Why?</em> Wrapping the column inside a function forces SQL Server to execute the <code>YEAR()</code> function row-by-row on every record in the table, resulting in an expensive Full Table Scan!
-          </div>
-          <div class="callout-pro">
-            <strong>Sargable Rewrite (Enables Index Seek):</strong><br>
-            <code>SELECT * FROM Appointments WHERE AppointmentDate &gt;= '2026-01-01' AND AppointmentDate &lt; '2027-01-01';</code><br>
-            <em>Why?</em> The column is isolated on one side of the comparison operator, allowing the query engine to jump directly to the target range using an index seek.
-          </div>
-        </div>
-      </div>
-
-      <!-- Q15 -->
-      <div class="qa-card" id="q15">
-        <div class="qa-header">
-          <span class="qa-number">Q 15</span>
-          <div class="qa-title">How do you prevent double-booking race conditions when two patients simultaneously book the same slot?</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-concur">Transactions</span>
-          <span class="tag tag-db">Data Integrity</span>
-        </div>
-        <div class="answer-body">
-          <p><strong>1. Pessimistic Locking with <code>UPDLOCK, ROWLOCK</code>:</strong></p>
-          <pre><code>BEGIN TRANSACTION;
-
-SELECT SlotId, IsBooked 
-FROM DoctorSlots WITH (UPDLOCK, ROWLOCK)
-WHERE SlotId = @SlotId;
-
--- If slot is unbooked:
-UPDATE DoctorSlots 
-SET IsBooked = 1, PatientId = @PatientId 
-WHERE SlotId = @SlotId;
-
-COMMIT TRANSACTION;</code></pre>
-          <p>
-            <em>"The <code>UPDLOCK</code> hint acquires an update lock immediately during the read phase. If another transaction tries to read the same slot with <code>UPDLOCK</code>, it is blocked until the first transaction commits or rolls back, completely preventing double booking."</em>
-          </p>
-          <p><strong>2. Optimistic Concurrency with <code>RowVersion</code> (EF Core):</strong></p>
-          <p>
-            Alternatively, add a <code>[Timestamp] byte[] RowVersion</code> column to the entity. When two users submit bookings for the same version, the second update matches 0 rows because the version was incremented, throwing <code>DbUpdateConcurrencyException</code> which the controller handles by notifying the user that the slot was just reserved.
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- CLINICAL ALGORITHMS -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">4</span>
-        Clinical Algorithms & Anti-Starvation Logic
+    <!-- ============================================================ -->
+    <!-- SECTION 5: SECURITY, AUTH & CONCURRENCY -->
+    <!-- ============================================================ -->
+    <section id="cat-mutex" class="category-section">
+      <div class="category-title">
+        5. Security, Auth &amp; Concurrency Control
+        <span class="qa-tag tag-angular">RxJS &amp; Security</span>
+      </div>
+      <p class="category-desc">One of the most impressive technical bullet points on your resume.</p>
+
+      <!-- Q13 -->
+      <div class="qa-card">
+        <div class="qa-question">
+          Q13: Explain the RxJS Concurrency Mutex and why you built it.
+          <span class="qa-tag tag-angular">Advanced Angular</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "This solves the infamous <b>Token Refresh Race Condition</b> in Single Page Applications (SPAs):
+          </p>
+          <p>
+            <b>The Problem:</b> When a user's 60-minute JWT expires, an Angular dashboard typically fires 4 to 6 parallel API requests simultaneously (e.g. fetching doctors, queue counts, metrics, notifications). If all 6 requests encounter a 401 Unauthorized at the same microsecond, each request independently triggers a <code>/refresh-token</code> call. 
+          </p>
+          <p>
+            Because we use <b>Refresh Token Rotation</b> (each refresh token is single-use and immediately invalidated upon redemption), the 1st request succeeds and rotates the token. Requests 2, 3, and 4 arrive with the old refresh token, triggering a security violation on the backend that invalidates the session and logs the doctor out mid-consultation!
+          </p>
+          <p>
+            <b>The Solution (RxJS Mutex):</b> In my HTTP Interceptor, I created a concurrency mutex using a <code>BehaviorSubject&lt;string | null&gt;</code>:
+          </p>
+          <div class="callout-code-sample">
+private isRefreshing = false;
+private refreshTokenSubject = new BehaviorSubject&lt;string | null&gt;(null);
+
+// When a 401 is caught:
+if (!this.isRefreshing) {
+  this.isRefreshing = true;
+  this.refreshTokenSubject.next(null); // Lock mutex
+
+  return this.authService.refreshToken().pipe(
+    switchMap((newToken) => {
+      this.isRefreshing = false;
+      this.refreshTokenSubject.next(newToken); // Unlock mutex & broadcast new JWT!
+      return next.handle(this.addToken(request, newToken));
+    })
+  );
+} else {
+  // Subsequent parallel requests WAIT until the mutex emits the new JWT!
+  return this.refreshTokenSubject.pipe(
+    filter(token => token !== null),
+    take(1),
+    switchMap(jwt => next.handle(this.addToken(request, jwt)))
+  );
+}
+          </div>
+          <p>
+            This guarantees that exactly <b>one</b> refresh request is made, while all other parallel requests pause and resume seamlessly with the new token."
+          </p>
+        </div>
+      </div>
+
+      <!-- Q14 -->
+      <div class="qa-card" id="cat-hipaa">
+        <div class="qa-question">
+          Q14: Why did you run the 15-minute HIPAA auto-lock outside Angular's zone?
+          <span class="qa-tag tag-angular">Performance &amp; Zone.js</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "Under HIPAA Section 164.312, clinical terminals left unattended for 15 minutes must automatically lock to prevent unauthorized access to Protected Health Information (PHI).
+          </p>
+          <p>
+            To detect user inactivity, you must listen to global DOM events like <code>mousemove</code>, <code>keydown</code>, <code>click</code>, and <code>scroll</code>.
+          </p>
+          <p>
+            <b>The Performance Trap:</b> If you listen to <code>mousemove</code> inside the standard Angular zone (Zone.js), every pixel movement triggers Angular's dirty checking and change detection across the entire DOM tree! This destroys performance, causing browser lag and fan spin.
+          </p>
+          <p>
+            <b>The Optimization:</b> I injected <code>NgZone</code> and initialized the idle tracker using <code>this.ngZone.runOutsideAngular(() => { ... })</code>. The mouse listener resets an internal timer without triggering change detection. Only when the 15-minute timer expires do I re-enter the zone via <code>this.ngZone.run(() => this.lockSession())</code> to display the lock screen."
+          </p>
+        </div>
+      </div>
+
+      <!-- Q15 -->
+      <div class="qa-card" id="cat-ratelimit">
+        <div class="qa-question">
+          Q15: How did you configure Rate Limiting in ASP.NET Core 8?
+          <span class="qa-tag tag-csharp">API Security</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "In <code>Program.cs</code>, I used the native .NET 8 Rate Limiting middleware (<code>Microsoft.AspNetCore.RateLimiting</code>).
+          </p>
+          <p>
+            Because the <b>Public Token Tracker</b> (<code>/api/public/track</code>) is accessible anonymously by patients holding paper slips without logging in, it was vulnerable to denial-of-service (DoS) enumeration attacks.
+          </p>
+          <div class="callout-code-sample">
+builder.Services.AddRateLimiter(options => {
+    options.AddFixedWindowLimiter("PublicTrackerPolicy", opt => {
+        opt.PermitLimit = 10;
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.QueueLimit = 2;
+    });
+});
+          </div>
+          <p>
+            If a script or malicious bot attempts more than 10 requests per minute from a single IP, the server immediately returns HTTP 429 Too Many Requests, protecting SQL Server from automated scrape attacks."
+          </p>
+        </div>
       </div>
 
       <!-- Q16 -->
-      <div class="qa-card" id="q16">
-        <div class="qa-header">
-          <span class="qa-number">Q 16</span>
-          <div class="qa-title">Explain the Canadian Triage and Acuity Scale (CTAS) implementation in VitalQ.</div>
+      <div class="qa-card" id="cat-security">
+        <div class="qa-question">
+          Q16: What is the difference between XSS and CSRF, and how does VitalQ protect against both?
+          <span class="qa-tag tag-arch">Web Security</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">Domain Modeling</span>
-          <span class="tag tag-perf">Algorithm</span>
-        </div>
-        <div class="answer-body">
-          <p>CTAS classifies patient acuity into 5 clinical levels based on physiological thresholds:</p>
-          <table class="cheat-table">
-            <thead>
-              <tr>
-                <th>Level</th>
-                <th>Classification</th>
-                <th>Clinical Thresholds</th>
-                <th>Target Wait</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Level 1</strong></td>
-                <td>Resuscitation (Code-Red)</td>
-                <td>SpO2 &lt; 85%, Pulse &lt; 40 or &gt; 160 bpm, Systolic BP &lt; 70 mmHg, GCS &lt; 9</td>
-                <td><strong>0 min (Immediate)</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Level 2</strong></td>
-                <td>Emergent</td>
-                <td>SpO2 85%–89%, Severe Pain &ge; 8/10, acute cardiac symptoms</td>
-                <td><strong>&le; 15 min</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Level 3</strong></td>
-                <td>Urgent</td>
-                <td>Moderate asthma, fracture with stable vitals, abdominal pain</td>
-                <td><strong>&le; 30 min</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Level 4</strong></td>
-                <td>Less Urgent</td>
-                <td>Minor trauma, ear infection, stable vitals</td>
-                <td><strong>&le; 60 min</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Level 5</strong></td>
-                <td>Non-Urgent</td>
-                <td>Suture removal, prescription refill, minor rash</td>
-                <td><strong>&le; 120 min</strong></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="qa-answer">
+          <p>
+            "<b>Cross-Site Scripting (XSS):</b> An attacker injects malicious client-side JavaScript into the web page to steal cookies or session tokens.
+          </p>
+          <p>
+            <b>Cross-Site Request Forgery (CSRF):</b> An attacker tricks an authenticated user's browser into executing unauthorized actions on a vulnerable site where the user is currently logged in.
+          </p>
+          <p>
+            <b>Defense in VitalQ:</b>
+          </p>
+          <ul>
+            <li><b>XSS Defense:</b> The Refresh Token is stored strictly inside an <code>HttpOnly</code> cookie, meaning client-side JavaScript cannot read or steal it even if an XSS vulnerability existed. Access tokens have short 60-minute lifetimes. Angular's built-in sanitizer automatically escapes dynamic data before rendering into the DOM.</li>
+            <li><b>CSRF Defense:</b> The cookie is marked <code>SameSite=Strict</code> and <code>Secure=true</code>. Browsers refuse to attach the cookie to cross-origin requests. API mutation endpoints validate the custom <code>Authorization: Bearer</code> header, which cannot be forged via cross-origin form posts.</li>
+          </ul>
         </div>
       </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 6: EF CORE & SQL SERVER OPTIMIZATION -->
+    <!-- ============================================================ -->
+    <section id="cat-efcore" class="category-section">
+      <div class="category-title">
+        6. Entity Framework Core &amp; Database Optimization
+        <span class="qa-tag tag-sql">SQL Server</span>
+      </div>
+      <p class="category-desc">Deep-dive technical questions on ORM bottlenecks, indexing, and memory allocation.</p>
 
       <!-- Q17 -->
-      <div class="qa-card" id="q17">
-        <div class="qa-header">
-          <span class="qa-number">Q 17</span>
-          <div class="qa-title">What happens during a Code-Red Emergency Bypass?</div>
+      <div class="qa-card">
+        <div class="qa-question">
+          Q17: What is the N+1 query problem, and how did you prevent it in VitalQ?
+          <span class="qa-tag tag-sql">EF Core Performance</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">Event Driven</span>
-          <span class="tag tag-front">SignalR Push</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
+          <p>
+            "The <b>N+1 query problem</b> occurs when an ORM executes 1 query to fetch a parent entity list, and then executes N additional individual queries to fetch child relationships for each item inside a loop.
+          </p>
+          <p>
+            <b>In VitalQ:</b> When loading the doctor's active queue, fetching 20 tokens without eager loading could trigger 20 additional round-trips to load patient details, vitals, and department info!
+          </p>
+          <p>
+            <b>Prevention:</b>
+          </p>
           <ol>
-            <li><strong>Automated Trigger:</strong> When vitals violate Level 1 boundaries, the triage calculation engine flags <code>IsCodeRed = true</code> and sets <code>PriorityScore = 100,000</code>.</li>
-            <li><strong>Queue Preemption:</strong> Because queue ordering is sorted by <code>PriorityScore DESC</code>, the emergency patient automatically preempts all existing patients and claims index <code>[0]</code> of the active doctor queue.</li>
-            <li><strong>Real-Time Broadcast:</strong> The backend hub dispatches an urgent SignalR message <code>CodeRedAlert</code>. On doctor terminals, the dashboard plays an audible alert tone and displays a pulsing red banner with the patient's vitals and room assignment.</li>
+            <li><b>Eager Loading:</b> Used <code>.Include(t => t.Patient).Include(t => t.TriageAssessment)</code> so EF Core generates a single SQL <code>LEFT JOIN</code>.</li>
+            <li><b>Projection via <code>.Select()</code>:</b> Rather than loading entire tracked entity models into memory, I projected directly into lightweight DTOs (e.g. <code>QueueTokenResponse</code>). SQL Server retrieves only the required columns, cutting network payload size by 70%.</li>
           </ol>
         </div>
       </div>
 
       <!-- Q18 -->
-      <div class="qa-card" id="q18">
-        <div class="qa-header">
-          <span class="qa-number">Q 18</span>
-          <div class="qa-title">Explain the 60-Minute Anti-Starvation Mathematical Aging Loop. Why is a pure priority queue dangerous in healthcare?</div>
+      <div class="qa-card">
+        <div class="qa-question">
+          Q18: Why did you use .AsNoTracking() on read queries, and what memory benefit does it provide?
+          <span class="qa-tag tag-sql">EF Core Memory</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-perf">Mathematics</span>
-          <span class="tag tag-arch">Background Worker</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            <strong>The Hazard of Pure Priority Queues:</strong> If a hospital experiences a continuous stream of Level 2 and Level 3 emergency arrivals, lower-priority patients (Levels 4 and 5) suffer <strong>Starvation</strong>. A child with a fractured arm might wait 8+ hours without ever reaching the front of the queue.
+            "By default, Entity Framework Core creates a duplicate snapshot of every retrieved entity inside its internal <b>Change Tracker</b> so it can detect changes when <code>SaveChangesAsync()</code> is called.
           </p>
-          <p><strong>The Mathematical Aging Formula:</strong></p>
-          <div class="ascii-box">
-PriorityScore = BaseWeight(CTAS) + (ElapsedMinutes * 2)
-
-Where:
-- CTAS Level 2 BaseWeight = 1,000
-- CTAS Level 3 BaseWeight = 500
-- CTAS Level 4 BaseWeight = 100
-- CTAS Level 5 BaseWeight = 20
-- AgingRate = +2 points per minute elapsed
-          </div>
-          <p><strong>Clinical Dynamics:</strong></p>
+          <p>
+            For read-only operations — such as public ticket tracking, nurse queue views, and admin dashboards — tracking is completely unnecessary overhead.
+          </p>
+          <p>
+            <b>Benefit:</b> Adding <code>.AsNoTracking()</code> disables identity resolution and snapshot tracking:
+          </p>
           <ul>
-            <li>A Level 4 patient ($Base = 100$) who has waited 200 minutes reaches a score of $100 + (200 \times 2) = 500$.</li>
-            <li>Their priority now equals a newly arriving Level 3 urgent patient, ensuring fair progression through the queue!</li>
+            <li>Reduces .NET heap garbage collection allocations by <b>50%</b>.</li>
+            <li>Executes queries up to <b>30% faster</b>.</li>
+            <li>Prevents memory leaks in high-frequency background polling or WebSocket broadcast handlers.</li>
           </ul>
-          <p><strong>Execution in .NET 8:</strong></p>
-          <p>
-            An <code>AntiStarvationWorker : BackgroundService</code> triggers every 60 seconds. It updates scores in a single batched SQL query:
-          </p>
-          <pre><code>UPDATE QueueEntries
-SET PriorityScore = BasePriorityScore + (DATEDIFF(MINUTE, CheckInTime, GETUTCDATE()) * 2)
-WHERE Status = 'Waiting';</code></pre>
         </div>
-      </div>
-    </section>
-
-    <!-- FRONTEND ARCHITECTURE & ANGULAR 19 -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">5</span>
-        Frontend Engineering & Modern Angular 19 Architecture
       </div>
 
       <!-- Q19 -->
-      <div class="qa-card" id="q19">
-        <div class="qa-header">
-          <span class="qa-number">Q 19</span>
-          <div class="qa-title">Why Angular 19 Signals instead of traditional RxJS Observables everywhere?</div>
+      <div class="qa-card" id="cat-filtered-index">
+        <div class="qa-question">
+          Q19: What is a Filtered B-Tree Index, and why did you use it on RefreshToken?
+          <span class="qa-tag tag-sql">SQL Indexing</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-front">Angular 19</span>
-          <span class="tag tag-perf">State Reactivity</span>
-        </div>
-        <div class="answer-body">
-          <ul>
-            <li><strong>Synchronous, Glitch-Free State:</strong> Signals represent synchronous values (e.g. <code>currentQueue = signal&lt;QueueEntry[]&gt;([])</code>). Computed signals (<code>codeRedCount = computed(() => this.currentQueue().filter(q => q.isCodeRed).length)</code>) execute lazily and memoize results.</li>
-            <li><strong>Zero Subscription Leaks:</strong> Signals bound in component templates automatically track dependencies. There is no need for <code>ngOnDestroy</code> unsubscribe logic, <code>takeUntilDestroyed()</code>, or async pipes for standard UI state.</li>
-            <li><strong>When to keep RxJS:</strong> RxJS remains the gold standard for asynchronous events and streams &mdash; such as WebSocket message streams, search input debouncing (<code>debounceTime</code>), and HTTP error recovery. We use <code>toSignal()</code> to bridge streams into the UI state layer cleanly.</li>
-          </ul>
+        <div class="qa-answer">
+          <p>
+            "A <b>Filtered Index</b> is a non-clustered index that includes a <code>WHERE</code> predicate to index only a specific subset of rows in a table.
+          </p>
+          <p>
+            In VitalQ, out of 100,000 registered patient records, only a small fraction (e.g. 500 active doctors, nurses, and logged-in patients) have an active refresh token at any given moment. 99% of rows have <code>RefreshToken = NULL</code>.
+          </p>
+          <p>
+            If you create a standard non-clustered index on <code>RefreshToken</code>, the B-Tree must store 100,000 pointers, wasting valuable buffer pool RAM and slowing down every patient registration insert.
+          </p>
+          <div class="callout-code-sample">
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Users_RefreshToken]
+ON [Users] ([RefreshToken])
+WHERE [RefreshToken] IS NOT NULL;
+          </div>
+          <p>
+            This filtered index is 99% smaller, stays permanently cached in L1/L2 server memory, and executes token validation seeks in <b>&lt; 0.2 milliseconds</b> with zero table scans."
+          </p>
         </div>
       </div>
 
       <!-- Q20 -->
-      <div class="qa-card" id="q20">
-        <div class="qa-header">
-          <span class="qa-number">Q 20</span>
-          <div class="qa-title">How does ChangeDetectionStrategy.OnPush optimize rendering performance in real-time dashboards?</div>
+      <div class="qa-card" id="cat-covering-index">
+        <div class="qa-question">
+          Q20: What is a Covering Index, and what is the difference between an Index Seek and an Index Scan?
+          <span class="qa-tag tag-sql">SQL Theory</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-front">Change Detection</span>
-          <span class="tag tag-perf">60 FPS</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            In default change detection, Zone.js triggers a top-to-bottom check of the entire component tree on <em>every single</em> browser event (clicks, timers, microtasks, WebSocket frames). In a busy dashboard with 100 components receiving continuous SignalR updates, this causes heavy CPU load and UI lag.
+            "An <b>Index Scan</b> traverses every single page in the index tree from start to finish (an <code>O(N)</code> operation), which is slow and disk-intensive.
           </p>
           <p>
-            With <code>ChangeDetectionStrategy.OnPush</code>, Angular skips evaluating a component and its children unless:
+            An <b>Index Seek</b> uses the B-Tree hierarchy (root page &rarr; branch page &rarr; leaf page) to jump directly to the exact memory address of the row using binary search (an <code>O(log N)</code> operation).
           </p>
-          <ol>
-            <li>An <code>@Input()</code> reference changes by identity (<code>prev !== curr</code>).</li>
-            <li>An event handler inside the component itself is fired.</li>
-            <li>A bound Angular Signal emits a new value.</li>
-            <li><code>ChangeDetectorRef.markForCheck()</code> is explicitly called.</li>
-          </ol>
-          <p><em>"This reduced dirty-checking passes by over 85%, ensuring smooth 60 FPS rendering on doctor workstations."</em></p>
+          <p>
+            A <b>Covering Index</b> is an index that contains all the columns needed by a query. By using the <code>INCLUDE</code> clause:
+          </p>
+          <div class="callout-code-sample">
+CREATE NONCLUSTERED INDEX [IX_QueueTokens_DoctorId_Status]
+ON [QueueTokens] ([DoctorId], [Status])
+INCLUDE ([TokenNumber], [CalledAtUtc], [CreatedAtUtc]);
+          </div>
+          <p>
+            SQL Server satisfies the query entirely from the index leaf pages without performing expensive Key Lookups against the clustered index."
+          </p>
         </div>
       </div>
 
       <!-- Q21 -->
-      <div class="qa-card" id="q21">
-        <div class="qa-header">
-          <span class="qa-number">Q 21</span>
-          <div class="qa-title">Why did you use NgZone.runOutsideAngular for the HIPAA 15-minute idle watcher?</div>
+      <div class="qa-card" id="cat-transactions">
+        <div class="qa-question">
+          Q21: How do you handle Database Transactions when calling or completing a patient?
+          <span class="qa-tag tag-sql">ACID Compliance</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-front">Zone.js</span>
-          <span class="tag tag-sec">HIPAA</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            To comply with HIPAA auto-lock requirements, the frontend must monitor user activity (<code>mousemove</code>, <code>keydown</code>, <code>scroll</code>).
+            "When a doctor completes a consultation, multiple database operations must succeed atomically:
           </p>
+          <ol>
+            <li>Update the active token's status to <code>Completed</code> and record <code>CompletedAtUtc</code>.</li>
+            <li>Persist the doctor's clinical advice and prescription text.</li>
+            <li>Update the physician's daily completed consultation counter.</li>
+          </ol>
           <p>
-            Because Zone.js monkey-patches all DOM events, attaching a <code>mousemove</code> listener inside the Angular zone causes Angular to run a full application change detection cycle on <strong>every single pixel of mouse movement</strong>!
-          </p>
-          <p><strong>The Optimization:</strong></p>
-          <pre><code>constructor(private ngZone: NgZone, private authService: AuthService) {
-  this.ngZone.runOutsideAngular(() =&gt; {
-    // Zero change detection cycles triggered during movement
-    fromEvent(window, 'mousemove').pipe(throttleTime(1000)).subscribe(() =&gt; this.resetTimer());
-    fromEvent(window, 'keydown').pipe(throttleTime(1000)).subscribe(() =&gt; this.resetTimer());
-  });
-}
-
-private triggerLockout() {
-  // Only re-enter the Angular Zone when we actually need to display the lock modal
-  this.ngZone.run(() =&gt; {
-    this.authService.lockSession();
-  });
-}</code></pre>
-        </div>
-      </div>
-
-      <!-- Q22 -->
-      <div class="qa-card" id="q22">
-        <div class="qa-header">
-          <span class="qa-number">Q 22</span>
-          <div class="qa-title">What was the CSS Transform Modal Trapping bug and how did TeleportToBodyDirective resolve it?</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-front">CSS Stacking</span>
-          <span class="tag tag-arch">DOM Portal</span>
-        </div>
-        <div class="answer-body">
-          <p>
-            Under W3C CSS specifications, applying a CSS <code>transform</code>, <code>filter</code>, or <code>perspective</code> to an element creates a new <strong>Containing Block</strong> for all descendants.
-          </p>
-          <p>
-            If a parent card uses a hover animation (e.g. <code>transform: translateY(-2px)</code>), any modal inside it with <code>position: fixed; inset: 0;</code> is trapped inside that tiny card instead of covering the browser viewport!
-          </p>
-          <p>
-            <strong>The Solution:</strong> I authored a custom directive <code>TeleportToBodyDirective</code>. When the modal renders, it physically moves the DOM node to <code>document.body</code> while maintaining component data binding and lifecycle integration, completely escaping the transformed parent container.
+            I wrap these operations inside an explicit Entity Framework Core transaction using <code>using var transaction = await _context.Database.BeginTransactionAsync()</code>. If any step fails (e.g. disk write failure), the transaction rolls back cleanly, maintaining 100% ACID compliance and preventing corrupted partial records."
           </p>
         </div>
       </div>
     </section>
 
-    <!-- SECURITY & HIPAA -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">6</span>
-        Security, Authentication & HIPAA Compliance
+    <!-- ============================================================ -->
+    <!-- SECTION 7: ANGULAR 19 FRONTEND ARCHITECTURE -->
+    <!-- ============================================================ -->
+    <section id="cat-signals" class="category-section">
+      <div class="category-title">
+        7. Angular 19 Frontend Architecture &amp; Performance
+        <span class="qa-tag tag-angular">Angular 19</span>
+      </div>
+      <p class="category-desc">Defending modern Angular concepts: Signals, OnPush change detection, and memory leak prevention.</p>
+
+      <!-- Q22 -->
+      <div class="qa-card">
+        <div class="qa-question">
+          Q22: Explain signal(), computed(), and effect() with actual examples from VitalQ.
+          <span class="qa-tag tag-angular">Angular 19 Signals</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "Angular 19 Signals provide fine-grained reactivity without Zone.js overhead:
+          </p>
+          <ul>
+            <li><b><code>signal()</code>:</b> A reactive state container holding a value. In <code>doctor-dashboard.component.ts</code>:
+              <div class="callout-code-sample">currentToken = signal&lt;QueueToken | null&gt;(null);</div>
+              When <code>currentToken.set(newPatient)</code> is called, Angular updates only the specific DOM nodes that read this signal!
+            </li>
+            <li><b><code>computed()</code>:</b> A memoized deriving signal that recomputes only when its dependent signals change:
+              <div class="callout-code-sample">
+patientsAheadCount = computed(() => {
+  return this.queue().filter(t => t.status === 'Waiting').length;
+});
+              </div>
+            </li>
+            <li><b><code>effect()</code>:</b> An operation that runs side-effects when signals change:
+              <div class="callout-code-sample">
+effect(() => {
+  const token = this.token();
+  if (token?.status === 'Called') {
+    this.playAudioChime();
+  }
+});
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <!-- Q23 -->
-      <div class="qa-card" id="q23">
-        <div class="qa-header">
-          <span class="qa-number">Q 23</span>
-          <div class="qa-title">Explain your JWT Authentication architecture. Where are tokens stored and why?</div>
+      <div class="qa-card" id="cat-standalone">
+        <div class="qa-question">
+          Q23: Why Standalone Components and OnPush Change Detection?
+          <span class="qa-tag tag-angular">Architecture</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-sec">Security</span>
-          <span class="tag tag-arch">OAuth / JWT</span>
-        </div>
-        <div class="answer-body">
-          <ul>
-            <li><strong>Access Token (Short-lived, 60 minutes):</strong> Stored strictly in <strong>browser memory</strong> inside a private TypeScript service variable &mdash; never in <code>localStorage</code> or <code>sessionStorage</code>.
-              <ul>
-                <li><em>Why?</em> <code>localStorage</code> is vulnerable to Cross-Site Scripting (XSS). Any compromised third-party library or malicious script can execute <code>localStorage.getItem('token')</code> and steal credentials. In-memory storage is unreachable by external scripts.</li>
-              </ul>
-            </li>
-            <li><strong>Refresh Token (7 days):</strong> Stored inside an <strong><code>HttpOnly, Secure, SameSite=Strict</code> Cookie</strong>.
-              <ul>
-                <li><code>HttpOnly</code> prevents JavaScript from reading or altering the token (XSS protection).</li>
-                <li><code>Secure</code> ensures transmission only across encrypted HTTPS channels.</li>
-                <li><code>SameSite=Strict</code> stops the browser from attaching the cookie to cross-site requests, completely preventing Cross-Site Request Forgery (CSRF).</li>
-              </ul>
-            </li>
-          </ul>
+        <div class="qa-answer">
+          <p>
+            "<b>Standalone Components (<code>standalone: true</code>):</b>
+            Eliminates bloated <code>NgModule</code> files. Each component directly imports only the specific directives and modules it needs (e.g. <code>CommonModule</code>, <code>FormsModule</code>), enabling aggressive webpack tree-shaking and route-level lazy loading (cutting initial bundle size to under 110kB).
+          </p>
+          <p>
+            <b><code>ChangeDetectionStrategy.OnPush</code>:</b>
+            By default, Angular runs dirty checking across the entire component tree on every browser event. With <code>OnPush</code>, Angular only checks the component when an <code>@Input()</code> reference changes or a <code>signal()</code> notifies it, delivering buttery-smooth <b>60fps UI rendering</b> even on low-powered hospital tablets."
+          </p>
         </div>
       </div>
 
       <!-- Q24 -->
-      <div class="qa-card" id="q24">
-        <div class="qa-header">
-          <span class="qa-number">Q 24</span>
-          <div class="qa-title">Why is client-side token deletion on logout insufficient in healthcare environments?</div>
+      <div class="qa-card" id="cat-audio">
+        <div class="qa-question">
+          Q24: How does the Native Web Audio API chime work without an external .mp3 file?
+          <span class="qa-tag tag-angular">Web Audio API</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-sec">Token Revocation</span>
-          <span class="tag tag-arch">HIPAA</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
           <p>
-            Simply removing tokens from client memory or cookies does not invalidate the cryptographic signature of the token on the server. If an adversary intercepted the token prior to logout, they could continue calling protected endpoints until the token expires.
+            "Relying on external <code>.mp3</code> audio assets creates network latency, 404 file path issues, and CORS restrictions on mobile browsers.
           </p>
-          <p><strong>VitalQ Dual-Revocation on Logout:</strong></p>
-          <ol>
-            <li><strong>Server Database Invalidation:</strong> <code>POST /api/auth/logout</code> executes:
-            <pre><code>UPDATE Users 
-SET RefreshToken = NULL, RefreshTokenExpiry = NULL 
-WHERE Id = @UserId;</code></pre>
-            </li>
-            <li><strong>Cookie Invalidation:</strong> Sends an expired cookie header: <code>Set-Cookie: refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure</code>.</li>
-            <li><strong>SignalR Termination:</strong> Closes the active WebSocket connection on the server and removes the user from all department broadcast groups.</li>
-          </ol>
+          <p>
+            In <code>public-tracker.component.ts</code>, I synthesized a native dual-tone hospital chime using the browser's <b>Web Audio API</b>:
+          </p>
+          <div class="callout-code-sample">
+const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+
+osc.type = 'sine';
+osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5 tone
+osc.frequency.setValueAtTime(880.00, audioCtx.currentTime + 0.2); // A5 tone
+gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.9);
+
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+osc.start();
+osc.stop(audioCtx.currentTime + 0.9);
+          </div>
+          <p>
+            This executes instantaneously in 0ms with zero network requests!"
+          </p>
         </div>
       </div>
 
       <!-- Q25 -->
-      <div class="qa-card" id="q25">
-        <div class="qa-header">
-          <span class="qa-number">Q 25</span>
-          <div class="qa-title">How did you implement Brute-Force and DDoS protection using .NET 8 native rate limiting?</div>
+      <div class="qa-card" id="cat-memory">
+        <div class="qa-question">
+          Q25: How do you prevent memory leaks in Angular when subscribing to SignalR and timers?
+          <span class="qa-tag tag-angular">RxJS Memory Management</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-sec">Rate Limiting</span>
-          <span class="tag tag-arch">.NET 8 Native</span>
-        </div>
-        <div class="answer-body">
-          <pre><code>builder.Services.AddRateLimiter(options =&gt; {
-  // Global API Policy: 100 requests per minute per IP address
-  options.GlobalLimiter = PartitionedRateLimiter.Create&lt;HttpContext, string&gt;(context =&gt;
-    RateLimitPartition.GetFixedWindowLimiter(
-      partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-      factory: _ =&gt; new FixedWindowRateLimiterOptions {
-        PermitLimit = 100,
-        Window = TimeSpan.FromMinutes(1),
-        QueueLimit = 0
-      }
-    )
-  );
-
-  // Strict Auth Policy: 5 login attempts per 15 minutes to thwart credential stuffing
-  options.AddFixedWindowLimiter("login-policy", opt =&gt; {
-    opt.PermitLimit = 5;
-    opt.Window = TimeSpan.FromMinutes(15);
-  });
-
-  options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-});</code></pre>
-        </div>
-      </div>
-
-      <!-- Q26 -->
-      <div class="qa-card" id="q26">
-        <div class="qa-header">
-          <span class="qa-number">Q 26</span>
-          <div class="qa-title">How does VitalQ satisfy HIPAA Technical Safeguard Section 164.312?</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-sec">HIPAA Compliance</span>
-        </div>
-        <div class="answer-body">
-          <ul>
-            <li><strong>164.312(a)(2)(iii) Automatic Logoff:</strong> If a doctor terminal is idle for 15 minutes, the frontend triggers an automated session lock and logs the user out.</li>
-            <li><strong>164.312(b) Audit Controls:</strong> Every queue alteration, code-red trigger, and vitals assessment writes an immutable audit record to the <code>AuditLogs</code> table with <code>UserId</code>, <code>IPAddress</code>, <code>Action</code>, and UTC timestamp.</li>
-            <li><strong>164.312(a)(1) Access Control:</strong> Strict role-based authorization using .NET 8 policies (e.g. <code>[Authorize(Roles = "Doctor,Admin")]</code>). Triage nurses cannot discharge patients; doctors cannot alter system audit configurations.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- STAR SCENARIOS & SCALING -->
-    <section class="section-block">
-      <div class="section-title">
-        <span class="section-title-num">7</span>
-        STAR Method Scenarios & Enterprise Scaling
-      </div>
-
-      <!-- Q27 -->
-      <div class="qa-card" id="q27">
-        <div class="qa-header">
-          <span class="qa-number">Q 27</span>
-          <div class="qa-title">"Tell me about the most difficult bug you encountered in VitalQ and how you fixed it."</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-star">STAR Technique</span>
-          <span class="tag tag-concur">Concurrency Bug</span>
-        </div>
-        <div class="answer-body">
-          <p><strong>Deliver using the structured STAR framework:</strong></p>
-          <ul>
-            <li><strong>Situation:</strong> <em>"During high-load testing of the doctor dashboard, when the 60-minute JWT token expired while multiple dashboard widgets were simultaneously fetching data, doctors were randomly being logged out of their sessions."</em></li>
-            <li><strong>Task:</strong> <em>"I needed to diagnose the intermittent failure, ensure session persistence across token expirations, and guarantee zero session drops during clinical operations."</em></li>
-            <li><strong>Action:</strong> <em>"I analyzed browser network traces and identified a race condition: three parallel requests failed with 401 at the same millisecond and fired three simultaneous refresh token calls. Because our backend enforces refresh token rotation for security, the second refresh request arrived with an already-revoked token, triggering the server's anti-replay guard to revoke the session."</em><br>
-            <em>"To solve this, I designed an RxJS software mutex inside the Angular <code>AuthInterceptor</code> using a <code>BehaviorSubject</code>. The first 401 request acquires the lock and initiates the refresh call, while subsequent concurrent requests queue on the <code>BehaviorSubject</code>. Once the new token arrives, all queued requests are re-dispatched simultaneously. I also stamped retried requests with a custom <code>X-VitalQ-Retry</code> header to eliminate infinite recursion risks."</em></li>
-            <li><strong>Result:</strong> <em>"The race condition was 100% eliminated. Under automated testing with 50 concurrent requests hitting an expired token, all requests refreshed silently with zero dropped sessions and no disruption to doctor workflows."</em></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Q28 -->
-      <div class="qa-card" id="q28">
-        <div class="qa-header">
-          <span class="qa-number">Q 28</span>
-          <div class="qa-title">"If you had to scale VitalQ to handle 100 hospitals across the state with 500,000 daily patients, what would you change in the architecture?"</div>
-        </div>
-        <div class="qa-tags">
-          <span class="tag tag-star">System Design</span>
-          <span class="tag tag-arch">Scaling 10x</span>
-        </div>
-        <div class="answer-body">
+        <div class="qa-answer">
+          <p>
+            "If an Angular component subscribes to an RxJS observable or WebSocket stream and the user navigates away, the subscription remains alive in memory, causing severe memory leaks and duplicate event executions.
+          </p>
+          <p>
+            <b>Prevention in VitalQ:</b>
+          </p>
           <ol>
-            <li><strong>SignalR Backplane with Redis Pub/Sub:</strong>
-              <ul>
-                <li>When running across a cluster of 10 load-balanced backend servers, a doctor connected to Server 1 would miss emergency alerts generated by a nurse connected to Server 2.</li>
-                <li>Introducing <strong>Redis Pub/Sub as a SignalR Backplane</strong> ensures real-time messages are broadcast across all server nodes seamlessly.</li>
-              </ul>
-            </li>
-            <li><strong>CQRS & Database Read Replicas:</strong>
-              <ul>
-                <li>Separate Read and Write workloads. Triage vital insertions and queue bookings write to the SQL Server Primary node.</li>
-                <li>Queue display boards, patient status lookups, and reporting dashboards query <strong>Read-Only Replicas</strong> (using SQL Server Always On Availability Groups), reducing primary database CPU load by 70%.</li>
-              </ul>
-            </li>
-            <li><strong>Asynchronous Message Queues (RabbitMQ / Azure Service Bus):</strong>
-              <ul>
-                <li>Offload non-critical side effects (audit logging, WhatsApp/SMS token notifications, and CTAS aging loop updates) into background message queues for asynchronous processing.</li>
-              </ul>
-            </li>
-            <li><strong>Multi-Tenant Table Partitioning:</strong>
-              <ul>
-                <li>Partition large tables (<code>QueueEntries</code>, <code>TriageAssessments</code>) by <code>HospitalId</code> using SQL Server Table Partitioning, ensuring queries scan only the relevant hospital's data partition.</li>
-              </ul>
+            <li>Maintained an internal subscription registry: <code>private subs: Subscription[] = [];</code></li>
+            <li>Implemented the <code>OnDestroy</code> lifecycle interface.</li>
+            <li>In <code>ngOnDestroy()</code>:
+              <div class="callout-code-sample">
+ngOnDestroy(): void {
+  // 1. Unsubscribe from all RxJS streams
+  this.subs.forEach(s => s.unsubscribe());
+  // 2. Cleanly leave SignalR broadcast rooms
+  this.signalR.leaveDoctorGroup(this.doctorId);
+}
+              </div>
             </li>
           </ol>
         </div>
       </div>
+    </section>
 
-      <!-- Q29 -->
-      <div class="qa-card" id="q29">
-        <div class="qa-header">
-          <span class="qa-number">Q 29</span>
-          <div class="qa-title">20 Rapid-Fire Technical Interview Questions & Answers Cheat Sheet</div>
+    <!-- ============================================================ -->
+    <!-- SECTION 8: LIVE CODING & ASP.NET CORE 8 BEST PRACTICES -->
+    <!-- ============================================================ -->
+    <section id="cat-di" class="category-section">
+      <div class="category-title">
+        8. Live Coding &amp; ASP.NET Core 8 Web API
+        <span class="qa-tag tag-csharp">C# &amp; .NET 8</span>
+      </div>
+      <p class="category-desc">Direct interview questions testing your practical C# and API fundamentals.</p>
+
+      <!-- Q26 -->
+      <div class="qa-card">
+        <div class="qa-question">
+          Q26: Explain Dependency Injection Lifetimes in ASP.NET Core with examples from VitalQ.
+          <span class="qa-tag tag-csharp">.NET Core DI</span>
         </div>
-        <div class="qa-tags">
-          <span class="tag tag-arch">Quick Reference</span>
+        <div class="qa-answer">
+          <p>
+            "ASP.NET Core provides three service lifetimes in <code>Program.cs</code>:
+          </p>
+          <ul>
+            <li><b>Transient (<code>AddTransient</code>):</b> A new instance is created every time it is requested. Used for lightweight, stateless utility helpers.</li>
+            <li><b>Scoped (<code>AddScoped</code>):</b> A single instance is created once per HTTP request lifecycle and shared across all services handling that request. In VitalQ:
+              <div class="callout-code-sample">
+builder.Services.AddScoped&lt;IQueueService, QueueService&gt;();
+builder.Services.AddScoped&lt;IQueueNotificationService, QueueNotificationService&gt;();
+builder.Services.AddDbContext&lt;AppDbContext&gt;();
+              </div>
+              <code>AppDbContext</code> must be Scoped to ensure all queries within a single HTTP request participate in the same transaction.
+            </li>
+            <li><b>Singleton (<code>AddSingleton</code>):</b> A single instance is created when the application starts and shared across all users and requests for the lifetime of the application. Used for in-memory caches, rate-limit state trackers, and background hosted services.</li>
+          </ul>
         </div>
-        <div class="answer-body">
-          <table class="cheat-table">
-            <thead>
-              <tr>
-                <th style="width: 32%;">Question</th>
-                <th>The Exact Senior-Level Answer</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>IEnumerable vs IQueryable?</strong></td>
-                <td><code>IEnumerable</code> executes in-memory on the server process after fetching all rows. <code>IQueryable</code> builds expression trees translated into SQL, executing filtering directly on the database engine.</td>
-              </tr>
-              <tr>
-                <td><strong>What is a CORS pre-flight?</strong></td>
-                <td>An HTTP <code>OPTIONS</code> request automatically sent by the browser before non-simple cross-origin requests to verify allowed methods, headers, and credentials.</td>
-              </tr>
-              <tr>
-                <td><strong>Dispose() vs Finalize()?</strong></td>
-                <td><code>Dispose()</code> is called deterministically by application code (or <code>using</code> block) to free unmanaged resources. <code>Finalize()</code> is called non-deterministically by the Garbage Collector before memory reclamation.</td>
-              </tr>
-              <tr>
-                <td><strong>What is an Idempotent HTTP method?</strong></td>
-                <td>A method where multiple identical requests produce the same side-effect on the server as a single request (e.g. <code>GET</code>, <code>PUT</code>, <code>DELETE</code> are idempotent; <code>POST</code> is not).</td>
-              </tr>
-              <tr>
-                <td><strong>What is the N+1 query problem?</strong></td>
-                <td>When an ORM executes 1 query to fetch a parent list and then $N$ additional queries to fetch child entities for each parent. Fixed in EF Core using eager loading with <code>.Include()</code> or projection with <code>.Select()</code>.</td>
-              </tr>
-              <tr>
-                <td><strong>What is Zone.js in Angular?</strong></td>
-                <td>An execution context library that monkey-patches browser asynchronous APIs (timers, events, promises) to notify Angular when to trigger change detection.</td>
-              </tr>
-              <tr>
-                <td><strong>What does @for (item of list; track item.id) do?</strong></td>
-                <td>Provides Angular with a unique identity for each DOM element, allowing it to move or update only changed DOM nodes rather than rebuilding the entire list.</td>
-              </tr>
-              <tr>
-                <td><strong>What is the difference between Task.Run and async I/O?</strong></td>
-                <td><code>Task.Run</code> offloads CPU-bound computation to a background ThreadPool thread. Async I/O (like <code>SaveChangesAsync()</code>) uses non-blocking I/O completion ports with zero active thread consumption.</td>
-              </tr>
-              <tr>
-                <td><strong>What is an SQL Deadlock?</strong></td>
-                <td>When two concurrent transactions each hold a lock the other needs to proceed, creating a cycle. SQL Server resolves this by choosing one transaction as the deadlock victim and rolling it back.</td>
-              </tr>
-              <tr>
-                <td><strong>What is Content Security Policy (CSP)?</strong></td>
-                <td>An HTTP response header that restricts the resources (scripts, styles, images) the browser is allowed to load for a given page, neutralizing XSS attacks.</td>
-              </tr>
-            </tbody>
-          </table>
+      </div>
+
+      <!-- Q27 -->
+      <div class="qa-card" id="cat-claims">
+        <div class="qa-question">
+          Q27: How do you extract the authenticated Doctor's ID from JWT Claims in the controller?
+          <span class="qa-tag tag-csharp">Security &amp; Claims</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "A major security flaw in amateur APIs is trusting a client-supplied query parameter (e.g. <code>?doctorId=...</code>) or request body field, allowing Doctor A to tamper with Doctor B's queue!
+          </p>
+          <p>
+            In VitalQ, the doctor's identity is extracted cryptographically from the signed JWT Claims in <code>DoctorController.cs</code>:
+          </p>
+          <div class="callout-code-sample">
+protected Guid GetCallerUserId()
+{
+    var claim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    if (string.IsNullOrEmpty(claim) || !Guid.TryParse(claim, out var userId))
+    {
+        throw new UnauthorizedAccessException("Invalid authentication token.");
+    }
+    return userId;
+}
+          </div>
+          <p>
+            The backend verifies the HMAC-SHA256 signature, ensuring the caller can only manipulate queues belonging to their own verified identity."
+          </p>
+        </div>
+      </div>
+
+      <!-- Q28 -->
+      <div class="qa-card" id="cat-exceptions">
+        <div class="qa-question">
+          Q28: How did you implement Global Exception Handling in .NET 8?
+          <span class="qa-tag tag-csharp">Error Handling</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "Rather than wrapping every single controller action in messy <code>try-catch</code> blocks, I implemented global error handling adhering to <b>RFC 7807 ProblemDetails</b>:
+          </p>
+          <p>
+            Using custom middleware (or .NET 8's <code>IExceptionHandler</code>), unhandled exceptions are intercepted at the root:
+          </p>
+          <ul>
+            <li><code>KeyNotFoundException</code> &rarr; Returns HTTP 404 Not Found with clean JSON message.</li>
+            <li><code>ArgumentException</code> / <code>ValidationException</code> &rarr; Returns HTTP 400 Bad Request with field errors.</li>
+            <li><code>UnauthorizedAccessException</code> &rarr; Returns HTTP 401 Unauthorized.</li>
+            <li>Any unexpected runtime crash &rarr; Logged securely to Serilog, returning HTTP 500 Internal Server Error without leaking sensitive stack traces or SQL connection strings to the public client.</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="page-footer">
-      VitalQ Full-Stack Interview Mastery Bible · Built for Muhammed Aslam · Ready to host on GitHub Pages / Vercel / Netlify
-    </footer>
+    <!-- ============================================================ -->
+    <!-- SECTION 9: SCALABILITY & SENIOR "WHAT-IF" QUESTIONS -->
+    <!-- ============================================================ -->
+    <section id="cat-scale" class="category-section">
+      <div class="category-title">
+        9. Senior Scalability &amp; Architectural Trade-offs
+        <span class="qa-tag tag-arch">Senior Round</span>
+      </div>
+      <p class="category-desc">High-level questions interviewers ask to test if you think like a Senior / Lead Engineer.</p>
 
+      <!-- Q29 -->
+      <div class="qa-card">
+        <div class="qa-question">
+          Q29: If 50 hospitals adopt VitalQ tomorrow, how would you scale the system?
+          <span class="qa-tag tag-arch">System Design</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "To scale VitalQ to handle 50+ hospital networks:
+          </p>
+          <ol>
+            <li><b>SignalR Scale-Out (Redis Backplane / Azure SignalR Service):</b> Currently, SignalR state resides in memory on a single server. In a multi-server load-balanced cluster, a doctor connected to Server A cannot notify a patient connected to Server B. I would introduce a <b>Redis Backplane</b> or Azure SignalR Service using pub/sub to propagate hub messages seamlessly across all server nodes.</li>
+            <li><b>Database Tenant Isolation:</b> Introduce a <code>HospitalId</code> partition key. In SQL Server, implement table partitioning by <code>HospitalId</code> or migrate to a hybrid multi-tenant database model where high-volume hospitals have dedicated databases.</li>
+            <li><b>Read/Write Replica Splitting:</b> Route high-throughput write commands (calls, status transitions) to the primary SQL Server database, and offload read queries (public tracker lookups, admin dashboards) to read-only replicas using EF Core read-write connection splitting.</li>
+            <li><b>Containerization &amp; HPA:</b> Deploy the ASP.NET Core API and Angular frontend as Docker containers on Kubernetes (EKS/AKS) configured with Horizontal Pod Autoscaling (HPA) scaling out based on CPU and WebSocket connection count."
+          </ol>
+        </div>
+      </div>
+
+      <!-- Q30 -->
+      <div class="qa-card" id="cat-race">
+        <div class="qa-question">
+          Q30: What happens if two doctors simultaneously call the same patient? How do you prevent race conditions?
+          <span class="qa-tag tag-csharp">Concurrency Control</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "In VitalQ, this is prevented at both the business logic and database transaction levels:
+          </p>
+          <ul>
+            <li><b>Optimistic Concurrency Control:</b> Every <code>QueueToken</code> has a <code>RowVersion</code> (timestamp) column. When Doctor A calls the patient, the status changes to <code>Called</code> and the version increments. If Doctor B's request arrives concurrently, Entity Framework throws a <code>DbUpdateConcurrencyException</code>, which is caught and returned as a friendly 409 Conflict: <i>'Patient has already been summoned by another doctor.'</i></li>
+            <li><b>Atomic State Transitions:</b> In the service layer, the token status transition query is conditional:
+              <code>WHERE Id = @TokenId AND Status = 'Waiting'</code>. Only the first transaction modifies a row; the second updates 0 rows and returns early.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 10: BEHAVIORAL & TECHNICAL STORYTELLING -->
+    <!-- ============================================================ -->
+    <section id="cat-bugs" class="category-section">
+      <div class="category-title">
+        10. Behavioral &amp; Technical Storytelling
+        <span class="qa-tag tag-arch">Interview Mastery</span>
+      </div>
+      <p class="category-desc">How to answer the classic behavioral questions using the STAR method.</p>
+
+      <!-- Q31 -->
+      <div class="qa-card">
+        <div class="qa-question">
+          Q31: Tell me about the hardest technical bug you faced in VitalQ and how you solved it.
+          <span class="qa-tag tag-arch">STAR Story</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "Use the <b>STAR Method (Situation, Task, Action, Result)</b>:
+          </p>
+          <p>
+            <b>Situation:</b> During end-to-end testing of our doctor consultation console, the consultation pacing stopwatch was displaying a bizarre <code>+333m Overtime</code> instead of starting at <code>0:00</code> whenever a doctor called a new patient.
+          </p>
+          <p>
+            <b>Task:</b> I had to isolate why the duration timer was drifting by 5 hours and 30 minutes and fix it without altering the underlying database schema.
+          </p>
+          <p>
+            <b>Action:</b> I inspected the raw network payload from ASP.NET Core and noticed SQL Server serialized UTC timestamps without an explicit trailing <code>'Z'</code> (e.g. <code>2026-10-21T10:00:00</code>). When the browser's JavaScript V8 engine in India (IST, UTC+05:30) passed this string into <code>new Date()</code>, it interpreted the string as local time rather than UTC, introducing an artificial 330-minute discrepancy.
+          </p>
+          <p>
+            I engineered a strict <code>parseUtcTimestamp()</code> utility function that validates trailing 'Z' flags before parsing, ensuring calculations strictly measure UTC delta in milliseconds.
+          </p>
+          <p>
+            <b>Result:</b> The timer now resets accurately to <code>0:00</code> across all international timezones, and the pacing alert system reliably warns doctors when consultations exceed average target minutes."
+          </p>
+        </div>
+      </div>
+
+      <!-- Q32 -->
+      <div class="qa-card" id="cat-differently">
+        <div class="qa-question">
+          Q32: If you had to rebuild VitalQ from scratch, what would you do differently?
+          <span class="qa-tag tag-arch">Critical Thinking</span>
+        </div>
+        <div class="qa-answer">
+          <p>
+            "<b>Senior Answer:</b>
+          </p>
+          <p>
+            While the current N-Tier architecture is clean and robust, if I were building VitalQ for an enterprise hospital chain from day one:
+          </p>
+          <ol>
+            <li><b>CQRS with MediatR:</b> I would implement Command Query Responsibility Segregation (CQRS). Commands (Call Next, Triage, Skip) would follow strict event handlers, while queries would use fast micro-ORMs like <b>Dapper</b> for maximum read throughput.</li>
+            <li><b>Outbox Pattern &amp; RabbitMQ:</b> Instead of publishing SignalR notifications directly inside the HTTP request thread, I would write events to an <b>Outbox table</b> and let a background worker publish them to a message broker (RabbitMQ/Kafka). This guarantees zero message loss even if the WebSocket service restarts during a database write.</li>
+            <li><b>Tailwind Component Library:</b> I would abstract reusable medical UI components (Vitals badges, CTAS pills, strike counters) into a dedicated shared UI library for faster feature delivery.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
-<!-- Search Filter Script & Copy Code Script -->
 <script>
   function filterQuestions() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const cards = document.querySelectorAll('.qa-card');
-    
+
     cards.forEach(card => {
       const text = card.innerText.toLowerCase();
       if (text.includes(input)) {
@@ -1546,20 +1307,6 @@ WHERE Id = @UserId;</code></pre>
       } else {
         card.style.display = 'none';
       }
-    });
-  }
-
-  function copyCode(btn) {
-    const pre = btn.nextElementSibling;
-    const code = pre.innerText;
-    navigator.clipboard.writeText(code).then(() => {
-      const originalText = btn.innerText;
-      btn.innerText = 'Copied!';
-      btn.style.background = '#059669';
-      setTimeout(() => {
-        btn.innerText = originalText;
-        btn.style.background = 'rgba(255, 255, 255, 0.15)';
-      }, 2000);
     });
   }
 </script>
